@@ -229,7 +229,6 @@ namespace Biotest.Migrations
                     SampleID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PatientID = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SampleTypeID = table.Column<int>(type: "int", nullable: false),
                     SampleSourceID = table.Column<int>(type: "int", nullable: false)

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biotest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240229033218_InitialMigration")]
+    [Migration("20240301155124_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -332,10 +332,6 @@ namespace Biotest.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PatientID")
                         .HasColumnType("int");

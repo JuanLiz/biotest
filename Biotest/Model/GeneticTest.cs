@@ -7,11 +7,15 @@ namespace Biotest.Model
     {
         [Key]
         public required int GeneticTestID { get; set; }
+        [Required]
         public required int GeneticTestTypeID { get; set; }
         //TODO: Solve cascade error
-        public int SampleID { get; set; }
+        public int? SampleID { get; set; }
+        [Required]
         public required int EmployeeID { get; set; }
+        [Required]
         public required DateTime Date { get; set; }
+        [Required]
         public required string Result { get; set; }
 
         [ForeignKey("GeneticTestTypeID")]

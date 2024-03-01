@@ -7,10 +7,13 @@ namespace Biotest.Model
     {
         [Key]
         public required int SampleID { get; set; }
+        [Required]
         public required int PatientID { get; set; }
-        public required string Name { get; set; }
+        [Required]
         public required DateTime Date { get; set; }
+        [Required]
         public required int SampleTypeID { get; set; }
+        [Required]
         public required int SampleSourceID { get; set; }
 
         [ForeignKey("PatientID")]

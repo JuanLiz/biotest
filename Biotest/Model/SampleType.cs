@@ -6,6 +6,7 @@ namespace Biotest.Model
     {
         [Key]
         public required int SampleTypeID { get; set; }
+        [Required]
         public required string Name { get; set; }
     }
 }

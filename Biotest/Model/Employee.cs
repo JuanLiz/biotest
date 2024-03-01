@@ -7,9 +7,13 @@ namespace Biotest.Model
     {
         [Key]
         public required int EmployeeID { get; set; }
+        [Required]
         public required string Name { get; set; }
+        [Required]
         public required string LastName { get; set; }
+        [Required]
         public required int GenderID { get; set; }
+        [Required]
         public required int EmployeePositionID { get; set; }
 
         [ForeignKey("GenderID")]

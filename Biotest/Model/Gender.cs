@@ -5,6 +5,7 @@ namespace Biotest.Model
     {
         [Key]
         public int GenderID { get; set; }
+        [Required]
         public required string Name { get; set; }
     }
 }
