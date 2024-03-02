@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Context
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : DbContext
     {
 
         // All DbSets go here
@@ -28,11 +28,6 @@ namespace Biotest.Context
         {
 
         }
-
-
-
-
-        
 
     }
 }
