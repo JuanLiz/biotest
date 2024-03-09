@@ -2,42 +2,41 @@ using Biotest.Model;
 
 namespace Biotest.Repositories
 {
-    public interface IPredictEdeffectRepository
+    public interface IPredictedEffectRepository
     {
-        IEnumerable<PredictEdeffect> GetPredictEdeffects();
-        PredictEdeffect GetPredictEdeffect(int id);
-        PredictEdeffect PutPredictEdeffect(int id, PredictEdeffect predictEdeffect);
-        PredictEdeffect PostPredictEdeffect(PredictEdeffect predictEdeffect);
-        PredictEdeffect DeletePredictEdeffect(int id);
+        IEnumerable<PredictedEffect> GetPredictedEffect();
+        PredictedEffect GetPredictedEffect(int id);
+        PredictedEffect PutPredictedEffect(int id, PredictedEffect predictedEffect);
+        PredictedEffect PostPredictedEffect(PredictedEffect predictedEffect);
+        PredictedEffect DeletePredictedEffect(int id);
     }
 
-    public class PredictEdeffectRepository : IPredictEdeffectRepository
+    public class PredictedEffectRepository : IPredictedEffectRepository
     {
-        public PredictEdeffect DeletePredictEdeffect(int id)
+        public PredictedEffect DeletePredictedEffect(int id)
         {
             throw new NotImplementedException();
         }
 
-        public PredictEdeffect GetPredictEdeffect(int id)
+        public PredictedEffect GetPredictedEffect(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PredictEdeffect> GetPredictEdeffects()
+        public IEnumerable<PredictedEffect> GetPredictedEffect()
         {
             throw new NotImplementedException();
         }
 
-        public PredictEdeffect PostPredictEdeffect(PredictEdeffect predictEdeffect)
+        public PredictedEffect PostPredictedEffect(PredictedEffect predictedEffect)
         {
             throw new NotImplementedException();
         }
 
-        public PredictEdeffect PutPredictEdeffect(int id, PredictEdeffect predictEdeffect)
+        public PredictedEffect PutPredictedEffect(int id, PredictedEffect predictedEffect)
         {
             throw new NotImplementedException();
         }
         
     }
-    
-}   
+}
