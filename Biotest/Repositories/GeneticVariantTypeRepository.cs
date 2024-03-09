@@ -4,7 +4,7 @@ namespace Biotest.Repositories
 {
     public interface IGeneticVariantTypeRepository
     {
-        IEnumerable<GeneticVariantType> GetGeneticVariantType();
+        IEnumerable<GeneticVariantType> GetGeneticVariantTypes();
         GeneticVariantType GetGeneticVariantType(int id);
         GeneticVariantType PutGeneticVariantType(int id, GeneticVariantType geneticVariantType);
         GeneticVariantType PostGeneticVariantType(GeneticVariantType geneticVariantType);
@@ -23,7 +23,7 @@ namespace Biotest.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<GeneticVariantType> GetGeneticVariantType()
+        public IEnumerable<GeneticVariantType> GetGeneticVariantTypes()
         {
             throw new NotImplementedException();
         }

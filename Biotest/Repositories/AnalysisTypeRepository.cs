@@ -2,38 +2,38 @@ using Biotest.Model;
 
 namespace Biotest.Repositories
 {
-    public interface IAnalysisRepository
+    public interface IAnalysisTypeRepository
     {
-        IEnumerable<Analysis> GetAnalysis();
-        Analysis GetAnalysis(int id);
-        Analysis PutAnalysis(int id, Analysis analysis);
-        Analysis PostAnalysis(Analysis analysis);
-        Analysis DeleteAnalysis(int id);
+        IEnumerable<AnalysisType> GetAnalysisTypes();
+        AnalysisType GetAnalysisType(int id);
+        AnalysisType PutAnalysisType(int id, AnalysisType analysisType);
+        AnalysisType PostAnalysisType(AnalysisType analysisType);
+        AnalysisType DeleteAnalysisType(int id);
     }
 
-    public class AnalysisRepository : IAnalysisRepository
+    public class AnalysisTypeRepository : IAnalysisTypeRepository
     {
-        public Analysis DeleteAnalysis(int id)
+        public AnalysisType DeleteAnalysisType(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Analysis GetAnalysis(int id)
+        public AnalysisType GetAnalysisType(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Analysis> GetAnalysis()
+        public IEnumerable<AnalysisType> GetAnalysisTypes()
         {
             throw new NotImplementedException();
         }
 
-        public Analysis PostAnalysis(Analysis analysis)
+        public AnalysisType PostAnalysisType(AnalysisType analysisType)
         {
             throw new NotImplementedException();
         }
 
-        public Analysis PutAnalysis(int id, Analysis analysis)
+        public AnalysisType PutAnalysisType(int id, AnalysisType analysisType)
         {
             throw new NotImplementedException();
         }

@@ -4,7 +4,7 @@ namespace Biotest.Repositories
 {
     public interface IEmployeePositionRepository
     {
-        IEnumerable<EmployeePosition> GetEmployeePosition();
+        IEnumerable<EmployeePosition> GetEmployeePositions();
         EmployeePosition GetEmployeePosition(int id);
         EmployeePosition PutEmployeePosition(int id, EmployeePosition employeePosition);
         EmployeePosition PostEmployeePosition(EmployeePosition employeePosition);
@@ -23,7 +23,7 @@ namespace Biotest.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<EmployeePosition> GetEmployeePosition()
+        public IEnumerable<EmployeePosition> GetEmployeePositions()
         {
             throw new NotImplementedException();
         }
