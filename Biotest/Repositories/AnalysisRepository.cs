@@ -1,4 +1,4 @@
-using Biotest Model;
+using Biotest.Model;
 
 namespace Biotest.Repositories
 {
