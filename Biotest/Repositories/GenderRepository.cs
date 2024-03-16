@@ -22,6 +22,12 @@ namespace Biotest.Repositories
             _db = db;
         }
 
+        public async Task<Gender> GetGender(int id)
+        {
+            // LINQ
+            return await _db.Gender.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
         public Gender CreateGender(string name)
         {
             throw new NotImplementedException();
@@ -29,7 +35,7 @@ namespace Biotest.Repositories
 
            public Gender GetGender(int id)
         {
-               throw new NotImplementedException();
+             return _db.Gender.Where(u => u.Id == id)
         }
 
         public IEnumerable<Gender> GetGenders()
