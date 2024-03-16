@@ -6,8 +6,8 @@ namespace Biotest.Repositories
 {
     public interface IGenderRepository
     {
-           IEnumerable<Gender> GetGenders();
-        Gender GetGender(int id);
+        Task<IEnumerable<Gender>> GetGenders();
+        Task<Gender> GetGenders(int id);
         Gender PutGender(int id, Gender gender);
         Gender PostGender(Gender gender);
         Gender DeleteGender(int id);
@@ -23,22 +23,28 @@ namespace Biotest.Repositories
             _db = db;
         }
 
-        public async Task<Gender> GetGender(int id)
+        public async Task<Gender>GetGenders(int id)
         {
             // LINQ
             return await _db.Gender.FirstOrDefaultAsync(u => u.GenderID == id);
         }
 
-
-        public Gender CreateGender(string name)
+        public async Task<IEnumerable<Gender>> GetGenders()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Gender> GetGenders()
+        public Gender CreateGender(string name)
         {
-                throw new NotImplementedException();
+            Gender newGender = new Gender { 
+                Name = name
+            };
+            _db.Gender.Add(newGender);
+            _db.SaveChanges();
+            return newGender;
         }
+
+
 
         public Gender PostGender(Gender gender)
         {
@@ -54,10 +60,6 @@ namespace Biotest.Repositories
                 throw new NotImplementedException();
         }
 
-        Gender IGenderRepository.GetGender(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
   
 }
