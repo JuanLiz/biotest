@@ -1,4 +1,5 @@
 using Biotest.Model;
+using Biotest.Context;
 
 namespace Biotest.Repositories
 {
@@ -9,10 +10,23 @@ namespace Biotest.Repositories
         Gender PutGender(int id, Gender gender);
         Gender PostGender(Gender gender);
         Gender DeleteGender(int id);
+        Gender CreateGender(string name);
     }
 
     public class GenderRepository : IGenderRepository
     {
+        private readonly ApplicationDbContext _db;
+
+        public GenderRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
+        public Gender CreateGender(string name)
+        {
+            throw new NotImplementedException();
+        }
+
            public Gender GetGender(int id)
         {
                throw new NotImplementedException();
