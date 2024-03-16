@@ -1,5 +1,6 @@
 using Biotest.Model;
 using Biotest.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Repositories
 {
@@ -25,17 +26,13 @@ namespace Biotest.Repositories
         public async Task<Gender> GetGender(int id)
         {
             // LINQ
-            return await _db.Gender.FirstOrDefaultAsync(u => u.Id == id);
+            return await _db.Gender.FirstOrDefaultAsync(u => u.GenderID == id);
         }
+
 
         public Gender CreateGender(string name)
         {
             throw new NotImplementedException();
-        }
-
-           public Gender GetGender(int id)
-        {
-             return _db.Gender.Where(u => u.Id == id)
         }
 
         public IEnumerable<Gender> GetGenders()
@@ -55,6 +52,11 @@ namespace Biotest.Repositories
         public Gender DeleteGender(int id)
         {
                 throw new NotImplementedException();
+        }
+
+        Gender IGenderRepository.GetGender(int id)
+        {
+            throw new NotImplementedException();
         }
     }
   
