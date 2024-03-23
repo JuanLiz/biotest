@@ -7,7 +7,7 @@ namespace Biotest.Repositories
     public interface IGenderRepository
     {
         Task<IEnumerable<Gender>> GetGenders();
-        Task<Gender> GetGenders(int id);
+        Task<Gender> GetGender(int id);
         Gender PutGender(int id, Gender gender);
         Gender PostGender(Gender gender);
         Gender DeleteGender(int id);
@@ -23,7 +23,7 @@ namespace Biotest.Repositories
             _db = db;
         }
 
-        public async Task<Gender>GetGenders(int id)
+        public async Task<Gender>GetGender(int id)
         {
             // LINQ
             return await _db.Gender.FirstOrDefaultAsync(u => u.GenderID == id);
