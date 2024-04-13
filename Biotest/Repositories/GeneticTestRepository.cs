@@ -1,39 +1,52 @@
+using Biotest.Context;
 using Biotest.Model;
 
 namespace Biotest.Repositories
 {
     public interface IGeneticTestRepository
     {
-        IEnumerable<GeneticTest> GetGeneticTest();
-        GeneticTest GetGeneticTest(int id);
-        GeneticTest PutGeneticTest(int id, GeneticTest geneticTest);
-        GeneticTest PostGeneticTest(GeneticTest geneticTest);
-        GeneticTest DeleteGeneticTest(int id);
+        Task<IEnumerable<GeneticTest>> GetGeneticTest();
+        Task<GeneticTest> GetGeneticTest(int id);
+        Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest);
+        Task<GeneticTest> PostGeneticTest(GeneticTest geneticTest);
+        Task<GeneticTest> DeleteGeneticTest(int id);
     }
 
     public class GeneticTestRepository : IGeneticTestRepository
     {
-        public GeneticTest DeleteGeneticTest(int id)
+        private readonly ApplicationDbContext _db;
+
+        public GeneticTestRepository(ApplicationDbContext db);
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public GeneticTest GetGeneticTest(int id)
+        public async Task<GeneticTest?> GetGeneticTest(int id)
         {
-            throw new NotImplementedException();
+            return await _db.GeneticTest.ToListAsync();
         }
 
-        public IEnumerable<GeneticTest> GetGeneticTest()
+        public async Task<IEnumerable<GeneticTest>> GetGeneticTest()
         {
-            throw new NotImplementedException();
+            return await _db.GeneticTest.ToListAsync();
         }
 
-        public GeneticTest PostGeneticTest(GeneticTest geneticTest)
+        public async Taask<GeneticTest> PostGeneticTest(GeneticTest geneticTest)
         {
-            throw new NotImplementedException();
+            _db.GeneticTest.Add(GeneticTest):
+            await _db.SaveChangesAsync();
+        return GeneticTest;
         }
 
-        public GeneticTest PutGeneticTest(int id, GeneticTest geneticTest)
+        public async Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest)
+        {
+            _db.Entry(GeneticTest).State = EntityState.Modified;
+            await _db.SaveChangesAsync(),
+            return GeneticTest;
+        }
+
+
+        public Task<GeneticTest> DeleteGeneticTest(int id)
         {
             throw new NotImplementedException();
         }

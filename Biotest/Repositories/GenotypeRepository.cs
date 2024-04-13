@@ -4,36 +4,47 @@ namespace Biotest.Repositories
 {
     public interface IGenotypeRepository
     {
-        IEnumerable<Genotype> GetGenotype();
-        Genotype GetGenotype(int id);
-        Genotype PutGenotype(int id, Genotype genotype);
-        Genotype PostGenotype(Genotype genotype);
-        Genotype DeleteGenotype(int id);
+        Task<IEnumerable<Genotype>> GetGenotype();
+        Task<Genotype> GetGenotype(int id);
+        Task<Genotype> PutGenotype(int id, Genotype genotype);
+        Task<Genotype> PostGenotype(Genotype genotype);
+        Task<Genotype> DeleteGenotype(int id);
     }
 
     public class GenotypeRepository : IGenotypeRepository
     {
-        public Genotype DeleteGenotype(int id)
+        private readonly ApplicationDbContext _db;
+
+        public GenotypeRepository(ApplicationDbContext db);
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public Genotype GetGenotype(int id)
+        public async Task<Genotype?> GetGenotype(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Genotype.ToListAsync();
         }
 
-        public IEnumerable<Genotype> GetGenotype()
+        public async Task<IEnumerable<Genotype>> GetGenotype()
         {
-            throw new NotImplementedException();
+            return await _db.Genotype.ToListAsync();
         }
 
-        public Genotype PostGenotype(Genotype genotype)
+        public async Taask<Genotype> PostGenotype(Genotype genotype)
         {
-            throw new NotImplementedException();
+            _db.Genotype.Add(Genotype):
+            await _db.SaveChangesAsync();
+            return Genotype;
         }
 
-        public Genotype PutGenotype(int id, Genotype genotype)
+        public async Task<Genotype> PutGenotype(int id, Genotype genotype)
+        {
+            _db.Entry(Genotype).State = EntityState.Modified;
+            await _db.SaveChangesAsync(),
+            return Genotype;
+        }
+
+         public Task<Genotype> DeleteGenotype(int id)
         {
             throw new NotImplementedException();
         }

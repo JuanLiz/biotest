@@ -4,36 +4,47 @@ namespace Biotest.Repositories
 {
     public interface IGeneticVariantRepository
     {
-        IEnumerable<GeneticVariant> GetGeneticVariants();
-        GeneticVariant GetGeneticVariant(int id);
-        GeneticVariant PutGeneticVariant(int id, GeneticVariant geneticVariant);
-        GeneticVariant PostGeneticVariant(GeneticVariant geneticVariant);
-        GeneticVariant DeleteGeneticVariant(int id);
+        Task<IEnumerable<GeneticVariant>> GetGeneticVariants();
+        Task<GeneticVariant?> GetGeneticVariant(int id);
+        Task<GeneticVariant> PutGeneticVariant (int id, GeneticVariant geneticVariant);
+        Task<GeneticVariant> PostGeneticVariant(GeneticVariant geneticVariant);
+        Task<GeneticVariant> DeleteGeneticVariant(int id);
     }
 
     public class GeneticVariantRepository : IGeneticVariantRepository
     {
-        public GeneticVariant DeleteGeneticVariant(int id)
+        private readonly ApplicationDbContext _db;
+
+        public GeneticVariantRepository(ApplicationDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public GeneticVariant GetGeneticVariant(int id)
+        public async Task<GeneticVariant?> GetGeneticVariant(int id)
         {
-            throw new NotImplementedException();
+            return await _db.GeneticVariant.FindAsync(id);
         }
 
-        public IEnumerable<GeneticVariant> GetGeneticVariants()
+        public async Task<IEnumerable<GeneticVariant>> GetGeneticVariants()
         {
-            throw new NotImplementedException();
+            return await _db.GeneticVariant.ToListAsync();
         }
 
-        public GeneticVariant PostGeneticVariant(GeneticVariant geneticVariant)
+        public async Task<GeneticVariant> PostGeneticVariant(GeneticVariant geneticVariant)
         {
-            throw new NotImplementedException();
+            _db.GeneticVariant.Add(geneticVariant);
+            await _db.SaveChangesAsync();
+            return geneticVariant;
+        }  
+
+        public async Task<GeneticVariant> PutGeneticVariant(int id, GeneticVariant geneticVariant)
+        {
+            _db.Entry(geneticVariant).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return geneticVariant;
         }
 
-        public GeneticVariant PutGeneticVariant(int id, GeneticVariant geneticVariant)
+        public Task<GeneticVariant> DeleteGeneticVariant(int id)
         {
             throw new NotImplementedException();
         }
