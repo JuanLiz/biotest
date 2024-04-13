@@ -7,7 +7,7 @@ namespace Biotest.Model
 
     {
         [Key]
-        public required int PatientID { get; set; }
+        public int PatientID { get; set; }
         [Required]
         public required string Name { get; set; }
         [Required]
@@ -24,7 +24,7 @@ namespace Biotest.Model
         public required string Email { get; set; }
 
         [ForeignKey("GenderID")]
-        public required Gender Gender { get; set; }
+        public Gender Gender { get; set; } = null!;
 
     }
 }

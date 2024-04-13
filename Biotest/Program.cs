@@ -1,4 +1,5 @@
 using Biotest.Context;
+using Biotest.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

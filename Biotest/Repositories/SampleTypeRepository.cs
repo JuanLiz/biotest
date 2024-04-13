@@ -7,7 +7,7 @@ namespace Biotest.Repositories
     public interface ISampleTypeRepository
     {
         Task<IEnumerable<SampleType>> GetSampleTypes();
-        Task<SampleType> GetSampleType(int id);
+        Task<SampleType?> GetSampleType(int id);
         Task<SampleType> PostSampleType(SampleType sampleType);
         Task<SampleType> PutSampleType(int id, SampleType sampleType);
         Task<SampleType> DeleteSampleType(int id);
@@ -24,7 +24,7 @@ namespace Biotest.Repositories
             _db = db;
         }
 
-        public async Task<SampleType> GetSampleType(int id)
+        public async Task<SampleType?> GetSampleType(int id)
         {
             return await _db.SampleType.FindAsync(id);
         }
