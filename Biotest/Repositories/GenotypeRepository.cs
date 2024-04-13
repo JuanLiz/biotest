@@ -15,16 +15,17 @@ namespace Biotest.Repositories
 
     public class GenotypeRepository : IGenotypeRepository
     {
+        
         private readonly ApplicationDbContext _db;
 
-        public GenotypeRepository(ApplicationDbContext db);
+        public GenotypeRepository(ApplicationDbContext db)
         {
             _db = db;
         }
 
         public async Task<Genotype?> GetGenotype(int id)
         {
-            return await _db.Genotype.ToListAsync();
+            return await _db.Genotype.FindAsync();
         }
 
         public async Task<IEnumerable<Genotype>> GetGenotype()
@@ -32,21 +33,21 @@ namespace Biotest.Repositories
             return await _db.Genotype.ToListAsync();
         }
 
-        public async Taask<Genotype> PostGenotype(Genotype genotype)
+        public async Task<Genotype> PostGenotype(Genotype genotype)
         {
-            _db.Genotype.Add(Genotype):
+            _db.Genotype.Add(genotype);
             await _db.SaveChangesAsync();
-            return Genotype;
+            return genotype;
         }
 
         public async Task<Genotype> PutGenotype(int id, Genotype genotype)
         {
-            _db.Entry(Genotype).State = EntityState.Modified;
-            await _db.SaveChangesAsync(),
-            return Genotype;
+            _db.Entry(genotype).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return genotype;
         }
 
-         public Task<Genotype> DeleteGenotype(int id)
+        public async Task<Genotype> DeleteGenotype(int id)
         {
             throw new NotImplementedException();
         }

@@ -17,14 +17,14 @@ namespace Biotest.Repositories
     {
         private readonly ApplicationDbContext _db;
 
-        public GeneticTestRepository(ApplicationDbContext db);
+        public GeneticTestRepository(ApplicationDbContext db)
         {
             _db = db;
         }
 
         public async Task<GeneticTest?> GetGeneticTest(int id)
         {
-            return await _db.GeneticTest.ToListAsync();
+            return await _db.GeneticTest.FindAsync();
         }
 
         public async Task<IEnumerable<GeneticTest>> GetGeneticTest()
@@ -32,18 +32,18 @@ namespace Biotest.Repositories
             return await _db.GeneticTest.ToListAsync();
         }
 
-        public async Taask<GeneticTest> PostGeneticTest(GeneticTest geneticTest)
+        public async Task<GeneticTest> PostGeneticTest(GeneticTest geneticTest)
         {
-            _db.GeneticTest.Add(GeneticTest):
+            _db.GeneticTest.Add(geneticTest);
             await _db.SaveChangesAsync();
-            return GeneticTest;
+            return geneticTest;
         }
 
         public async Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest)
         {
-            _db.Entry(GeneticTest).State = EntityState.Modified;
+            _db.Entry(geneticTest).State = EntityState.Modified;
             await _db.SaveChangesAsync(),
-            return GeneticTest;
+            return geneticTest;
         }
 
 
