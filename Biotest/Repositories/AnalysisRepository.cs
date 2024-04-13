@@ -1,43 +1,57 @@
+using Biotest.Context;
 using Biotest.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Repositories
 {
     public interface IAnalysisRepository
     {
-        IEnumerable<Analysis> GetAnalysis();
-        Analysis GetAnalysis(int id);
-        Analysis PutAnalysis(int id, Analysis analysis);
-        Analysis PostAnalysis(Analysis analysis);
-        Analysis DeleteAnalysis(int id);
+        Task<IEnumerable<Analysis>> GetAnalysis();
+        Task<Analysis?> GetAnalysis(int id);
+        Task<Analysis> PutAnalysis(int id, Analysis analysis);
+        Task<Analysis> PostAnalysis(Analysis analysis);
+        Task<Analysis?> DeleteAnalysis(int id);
     }
 
     public class AnalysisRepository : IAnalysisRepository
     {
-        public Analysis DeleteAnalysis(int id)
+
+        private readonly ApplicationDbContext _db;
+        public AnalysisRepository(ApplicationDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public Analysis GetAnalysis(int id)
+        public async Task<Analysis?> GetAnalysis(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Analysis.FindAsync(id);
         }
 
-        public IEnumerable<Analysis> GetAnalysis()
+        public async Task<IEnumerable<Analysis>> GetAnalysis()
         {
-            throw new NotImplementedException();
+            return await _db.Analysis.ToListAsync();
         }
 
-        public Analysis PostAnalysis(Analysis analysis)
+        public async Task<Analysis> PostAnalysis(Analysis analysis)
         {
-            throw new NotImplementedException();
+            _db.Analysis.Add(analysis);
+            await _db.SaveChangesAsync();
+            return analysis;
         }
 
-        public Analysis PutAnalysis(int id, Analysis analysis)
+        public async Task<Analysis> PutAnalysis(int id, Analysis analysis)
         {
+            // Simplified function to update a patient
+            _db.Entry(analysis).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return analysis;
+        }
+
+        public Task<Analysis?> DeleteAnalysis(int id)
+        {
+            // Change boolean state
             throw new NotImplementedException();
         }
-        
     }
     
 }
