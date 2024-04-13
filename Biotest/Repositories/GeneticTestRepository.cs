@@ -10,7 +10,7 @@ namespace Biotest.Repositories
         Task<GeneticTest?> GetGeneticTest(int id);
         Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest);
         Task<GeneticTest> PostGeneticTest(GeneticTest geneticTest);
-        Task<GeneticTest> DeleteGeneticTest(int id);
+        Task<GeneticTest?> DeleteGeneticTest(int id);
     }
 
     public class GeneticTestRepository : IGeneticTestRepository
@@ -42,12 +42,12 @@ namespace Biotest.Repositories
         public async Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest)
         {
             _db.Entry(geneticTest).State = EntityState.Modified;
-            await _db.SaveChangesAsync(),
+            await _db.SaveChangesAsync();
             return geneticTest;
         }
 
 
-        public Task<GeneticTest> DeleteGeneticTest(int id)
+        public Task<GeneticTest?> DeleteGeneticTest(int id)
         {
             throw new NotImplementedException();
         }

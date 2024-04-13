@@ -10,7 +10,7 @@ namespace Biotest.Repositories
         Task<Genotype?> GetGenotype(int id);
         Task<Genotype> PutGenotype(int id, Genotype genotype);
         Task<Genotype> PostGenotype(Genotype genotype);
-        Task<Genotype> DeleteGenotype(int id);
+        Task<Genotype?> DeleteGenotype(int id);
     }
 
     public class GenotypeRepository : IGenotypeRepository
@@ -47,7 +47,7 @@ namespace Biotest.Repositories
             return genotype;
         }
 
-        public async Task<Genotype> DeleteGenotype(int id)
+        public Task<Genotype?> DeleteGenotype(int id)
         {
             throw new NotImplementedException();
         }
