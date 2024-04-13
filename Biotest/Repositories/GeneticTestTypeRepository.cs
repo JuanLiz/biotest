@@ -7,7 +7,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<GeneticTestType>> GetGeneticTestTypes();
         Task<GeneticTestType?> GetGeneticTestType(int id);
         Task<GeneticTestType> PutGeneticTestType(int id, GeneticTestType geneticTestType);
-        Task<eneticTestType> PostGeneticTestType(GeneticTestType geneticTestType);
+        Task<GeneticTestType> PostGeneticTestType(GeneticTestType geneticTestType);
         Task<GeneticTestType> DeleteGeneticTestType(int id);
     }
 

@@ -6,7 +6,7 @@ namespace Biotest.Repositories
     public interface IGeneticTestRepository
     {
         Task<IEnumerable<GeneticTest>> GetGeneticTest();
-        Task<GeneticTest> GetGeneticTest(int id);
+        Task<GeneticTest?> GetGeneticTest(int id);
         Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest);
         Task<GeneticTest> PostGeneticTest(GeneticTest geneticTest);
         Task<GeneticTest> DeleteGeneticTest(int id);
