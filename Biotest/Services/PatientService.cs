@@ -25,29 +25,21 @@ namespace Biotest.Repositories
     }
 
 
-    public class PatientService : IPatientService
+    public class PatientService(IPatientRepository patientRepository) : IPatientService
     {
-
-        private readonly PatientRepository _patientRepository;
-
-        public PatientService(PatientRepository patientRepository)
-        {
-            _patientRepository = patientRepository;
-        }
-
         public async Task<Patient?> GetPatient(int id)
         {
-            return await _patientRepository.GetPatient(id);
+            return await patientRepository.GetPatient(id);
         }
 
         public async Task<IEnumerable<Patient>> GetPatients()
         {
-            return await _patientRepository.GetPatients();
+            return await patientRepository.GetPatients();
         }
 
         public async Task<Patient> PostPatient(Patient patient)
         {
-            return await _patientRepository.PostPatient(patient);
+            return await patientRepository.PostPatient(patient);
         }
 
         public async Task<Patient> PutPatient(
@@ -61,7 +53,7 @@ namespace Biotest.Repositories
             string? email
             )
         {
-            Patient? newPatient = await _patientRepository.GetPatient(id);
+            Patient? newPatient = await patientRepository.GetPatient(id);
             if (newPatient == null)
             {
                 throw new Exception("Patient not found");
@@ -76,13 +68,13 @@ namespace Biotest.Repositories
                 newPatient.Phone = phone ?? newPatient.Phone;
                 newPatient.Address = address ?? newPatient.Address;
                 newPatient.Email = email ?? newPatient.Email;
-                return await _patientRepository.PutPatient(id, newPatient);
+                return await patientRepository.PutPatient(id, newPatient);
             }
         }
 
         public async Task<Patient?> DeletePatient(int id)
         {
-            return await _patientRepository.DeletePatient(id);
+            return await patientRepository.DeletePatient(id);
         }
 
     }

@@ -42,7 +42,7 @@ namespace Biotest.Repositories
         public async Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest)
         {
             _db.Entry(geneticTest).State = EntityState.Modified;
-            await _db.SaveChangesAsync(),
+            await _db.SaveChangesAsync();
             return geneticTest;
         }
 

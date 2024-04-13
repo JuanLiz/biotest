@@ -9,22 +9,22 @@ namespace Biotest.Model
         [Key]
         public int PatientID { get; set; }
         [Required]
-        public required string Name { get; set; }
+        public string Name { get; set; } 
         [Required]
-        public required string LastName { get; set; }
+        public string LastName { get; set; }
         [Required]
-        public required DateOnly BirthDate { get; set; }
+        public DateOnly BirthDate { get; set; }
         [Required]
-        public required int GenderID { get; set; }
+        public int GenderID { get; set; }
         [Required] 
-        public required string Phone { get; set; }
+        public string Phone { get; set; }
         [Required]
-        public required string Address { get; set; }
+        public string Address { get; set; }
         [Required]
-        public required string Email { get; set; }
+        public string Email { get; set; }
 
         [ForeignKey("GenderID")]
-        public Gender Gender { get; set; } = null!;
+        public Gender? Gender { get; set; }
 
     }
 }
