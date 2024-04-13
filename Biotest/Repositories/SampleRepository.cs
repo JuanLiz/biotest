@@ -4,40 +4,51 @@ namespace Biotest.Repositories
 {
     public interface ISampleRepository
     {
-        IEnumerable<Sample> GetSample();
-        Sample GetSample(int id);
-        Sample PutSample(int id, Sample sample);
-        Sample PostSample(Sample sample);
-        Sample DeleteSample(int id);
+        Task<IEnumerable<Sample>> GetSamples();
+        Task<Sample> GetSample(int id);
+        Task<Sample> PostSample(Sample sample);
+        Task<Sample> PutSample(int id, Sample sample);
+        Task<Sample?> DeleteSample(int id);
+
     }
 
     public class SampleRepository : ISampleRepository
     {
-        public Sample DeleteSample(int id)
+        private readonly ApplicationDbContext _db;
+
+        public SampleRepository(ApplicationDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public Sample GetSample(int id)
+        public async Task<Sample> GetSample(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Sample.FindAsync(id);
         }
 
-        public IEnumerable<Sample> GetSample()
+        public async Task<IEnumerable<Sample>> GetSamples()
         {
-            throw new NotImplementedException();
+            return await _db.Sample.ToListAsync();
         }
 
-        public Sample PostSample(Sample sample)
+        public async Task<Sample> PostSample(Sample sample)
         {
-            throw new NotImplementedException();
+            _db.Sample.Add(sample);
+            await _db.SaveChangesAsync();
+            return sample;
         }
 
-        public Sample PutSample(int id, Sample sample)
+        public async Task<Sample> PutSample(int id, Sample sample)
+        {
+            _db.Entry(sample).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return sample;
+        }
+
+        public Task<Sample?> DeleteSample(int id)
         {
             throw new NotImplementedException();
         }
-        
     }
     
 }

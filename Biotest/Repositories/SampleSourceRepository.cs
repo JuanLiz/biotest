@@ -1,39 +1,52 @@
+using Biotest.Context;
 using Biotest.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Repositories
 {
     public interface ISampleSourceRepository
     {
-        IEnumerable<SampleSource> GetSampleSources();
-        SampleSource GetSampleSource(int id);
-        SampleSource PutSampleSource(int id, SampleSource sampleSource);
-        SampleSource PostSampleSource(SampleSource sampleSource);
-        SampleSource DeleteSampleSource(int id);
+        Task<IEnumerable<SampleSource>> GetSampleSources();
+        Task<SampleSource> GetSampleSource(int id);
+        Task<SampleSource> PostSampleSource(SampleSource sampleSource);
+        Task<SampleSource> PutSampleSource(int id, SampleSource sampleSource);
+        Task<SampleSource?> DeleteSampleSource(int id);
     }
 
     public class SampleSourceRepository : ISampleSourceRepository
     {
-        public SampleSource DeleteSampleSource(int id)
+        private readonly ApplicationDbContext _db;
+
+        public SampleSourceRepository(ApplicationDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public SampleSource GetSampleSource(int id)
+        public async Task<SampleSource> GetSampleSource(int id)
         {
-            throw new NotImplementedException();
+            return await _db.SampleSource.FindAsync(id);
         }
 
-        public IEnumerable<SampleSource> GetSampleSources()
+        public async Task<IEnumerable<SampleSource>> GetSampleSources()
         {
-            throw new NotImplementedException();
+            return await _db.SampleSource.ToListAsync();
         }
 
-        public SampleSource PostSampleSource(SampleSource sampleSource)
+        public async Task<SampleSource> PostSampleSource(SampleSource sampleSource)
         {
-            throw new NotImplementedException();
+            _db.SampleSource.Add(sampleSource);
+            await _db.SaveChangesAsync();
+            return sampleSource;
         }
 
-        public SampleSource PutSampleSource(int id, SampleSource sampleSource)
+        public async Task<SampleSource> PutSampleSource(int id, SampleSource sampleSource)
+        {
+            _db.Entry(sampleSource).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return sampleSource;
+        }
+
+        public Task<SampleSource?> DeleteSampleSource(int id)
         {
             throw new NotImplementedException();
         }
