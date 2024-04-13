@@ -7,11 +7,11 @@ namespace Biotest.Repositories
     public interface IGenderRepository
     {
         Task<IEnumerable<Gender>> GetGenders();
-        Task<Gender> GetGender(int id);
-        Gender PutGender(int id, Gender gender);
-        Gender PostGender(Gender gender);
-        Gender DeleteGender(int id);
-        Gender CreateGender(string name);
+        Task<Gender?> GetGender(int id);
+        Task<Gender> PutGender(int id, Gender gender);
+        Task<Gender> PostGender(Gender gender);
+        Task<Gender?> DeleteGender(int id);
+        
     }
 
     public class GenderRepository : IGenderRepository
@@ -23,42 +23,41 @@ namespace Biotest.Repositories
             _db = db;
         }
 
-        public async Task<Gender>GetGender(int id)
+        public async Task<Gender?> GetGender(int id)
         {
-            // LINQ
-            return await _db.Gender.FirstOrDefaultAsync(u => u.GenderID == id);
+            // Simplified function to get a patient by id
+            return await _db.Gender.FindAsync(id);
         }
 
         public async Task<IEnumerable<Gender>> GetGenders()
         {
+            // Simplified function to get all patients
+            return await _db.Gender.ToListAsync();
+        }
+
+        public async Task<Gender> PostGender(Gender gender)
+        {
+            // Simplified function to add a patient
+            _db.Gender.Add(gender);
+            await _db.SaveChangesAsync();
+            return gender;
+        }
+
+        public async Task<Gender> PutGender(int id, Gender gender)
+        {
+            // Simplified function to update a patient
+            _db.Entry(gender).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return gender;
+        }
+
+        public Task<Gender?> DeleteGender(int id)
+        {
+            // Change boolean state
             throw new NotImplementedException();
         }
 
-        public Gender CreateGender(string name)
-        {
-            Gender newGender = new Gender { 
-                Name = name
-            };
-            _db.Gender.Add(newGender);
-            _db.SaveChanges();
-            return newGender;
-        }
 
-
-
-        public Gender PostGender(Gender gender)
-        {
-                throw new NotImplementedException();
-        }
-
-        public Gender PutGender(int id, Gender gender)
-        {
-                throw new NotImplementedException();
-        }   
-        public Gender DeleteGender(int id)
-        {
-                throw new NotImplementedException();
-        }
 
     }
   

@@ -1,43 +1,58 @@
+using Biotest.Context;
 using Biotest.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Repositories
 {
     public interface IAnalysisTypeRepository
     {
-        IEnumerable<AnalysisType> GetAnalysisTypes();
-        AnalysisType GetAnalysisType(int id);
-        AnalysisType PutAnalysisType(int id, AnalysisType analysisType);
-        AnalysisType PostAnalysisType(AnalysisType analysisType);
-        AnalysisType DeleteAnalysisType(int id);
+        Task<IEnumerable<AnalysisType>> GetAnalysisTypes();
+        Task<AnalysisType?> GetAnalysisType(int id);
+        Task<AnalysisType> PutAnalysisType(int id, AnalysisType analysisType);
+        Task<AnalysisType> PostAnalysisType(AnalysisType analysisType);
+        Task<AnalysisType?> DeleteAnalysisType(int id);
     }
 
     public class AnalysisTypeRepository : IAnalysisTypeRepository
     {
-        public AnalysisType DeleteAnalysisType(int id)
+
+        private readonly ApplicationDbContext _db;
+
+        public AnalysisTypeRepository(ApplicationDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public AnalysisType GetAnalysisType(int id)
+        public async Task<AnalysisType?> GetAnalysisType(int id)
         {
-            throw new NotImplementedException();
+            // Simplified function to get a patient by id
+            return await _db.AnalysisType.FindAsync(id);
         }
 
-        public IEnumerable<AnalysisType> GetAnalysisTypes()
+        public async Task<IEnumerable<AnalysisType>> GetAnalysisTypes()
         {
-            throw new NotImplementedException();
+            // Simplified function to get all patients
+            return await _db.AnalysisType.ToListAsync();
+        }
+        public async Task<AnalysisType> PostAnalysisType(AnalysisType analysisType)
+        {
+            // Simplified function to add a patient
+            _db.AnalysisType.Add(analysisType);
+            await _db.SaveChangesAsync();
+            return analysisType;
+        }
+        public async Task<AnalysisType> PutAnalysisType(int id, AnalysisType analysisType)
+        {
+            // Simplified function to update a patient
+            _db.Entry(analysisType).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return analysisType;
         }
 
-        public AnalysisType PostAnalysisType(AnalysisType analysisType)
+        public Task<AnalysisType?> DeleteAnalysisType(int id)
         {
             throw new NotImplementedException();
         }
-
-        public AnalysisType PutAnalysisType(int id, AnalysisType analysisType)
-        {
-            throw new NotImplementedException();
-        }
-        
     }
     
 }
