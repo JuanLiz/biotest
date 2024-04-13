@@ -1,4 +1,6 @@
+using Biotest.Context;
 using Biotest.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Repositories
 {
@@ -7,7 +9,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<GeneticTestType>> GetGeneticTestTypes();
         Task<GeneticTestType?> GetGeneticTestType(int id);
         Task<GeneticTestType> PutGeneticTestType(int id, GeneticTestType geneticTestType);
-        Task<eneticTestType> PostGeneticTestType(GeneticTestType geneticTestType);
+        Task<GeneticTestType> PostGeneticTestType(GeneticTestType geneticTestType);
         Task<GeneticTestType> DeleteGeneticTestType(int id);
     }
 

@@ -1,12 +1,13 @@
 using Biotest.Context;
 using Biotest.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Repositories
 {
     public interface IGeneticTestRepository
     {
         Task<IEnumerable<GeneticTest>> GetGeneticTest();
-        Task<GeneticTest> GetGeneticTest(int id);
+        Task<GeneticTest?> GetGeneticTest(int id);
         Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest);
         Task<GeneticTest> PostGeneticTest(GeneticTest geneticTest);
         Task<GeneticTest> DeleteGeneticTest(int id);
@@ -35,7 +36,7 @@ namespace Biotest.Repositories
         {
             _db.GeneticTest.Add(GeneticTest):
             await _db.SaveChangesAsync();
-        return GeneticTest;
+            return GeneticTest;
         }
 
         public async Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest)

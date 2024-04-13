@@ -1,11 +1,13 @@
+using Biotest.Context;
 using Biotest.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Repositories
 {
     public interface IGenotypeRepository
     {
         Task<IEnumerable<Genotype>> GetGenotype();
-        Task<Genotype> GetGenotype(int id);
+        Task<Genotype?> GetGenotype(int id);
         Task<Genotype> PutGenotype(int id, Genotype genotype);
         Task<Genotype> PostGenotype(Genotype genotype);
         Task<Genotype> DeleteGenotype(int id);
