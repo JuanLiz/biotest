@@ -10,7 +10,7 @@ namespace Biotest.Repositories
         Task<GeneticVariant?> GetGeneticVariant(int id);
         Task<GeneticVariant> PutGeneticVariant (int id, GeneticVariant geneticVariant);
         Task<GeneticVariant> PostGeneticVariant(GeneticVariant geneticVariant);
-        Task<GeneticVariant> DeleteGeneticVariant(int id);
+        Task<GeneticVariant?> DeleteGeneticVariant(int id);
     }
 
     public class GeneticVariantRepository : IGeneticVariantRepository
@@ -46,7 +46,7 @@ namespace Biotest.Repositories
             return geneticVariant;
         }
 
-        public Task<GeneticVariant> DeleteGeneticVariant(int id)
+        public Task<GeneticVariant?> DeleteGeneticVariant(int id)
         {
             throw new NotImplementedException();
         }

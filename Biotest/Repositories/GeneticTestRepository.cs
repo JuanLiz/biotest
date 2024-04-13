@@ -10,7 +10,7 @@ namespace Biotest.Repositories
         Task<GeneticTest?> GetGeneticTest(int id);
         Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest);
         Task<GeneticTest> PostGeneticTest(GeneticTest geneticTest);
-        Task<GeneticTest> DeleteGeneticTest(int id);
+        Task<GeneticTest?> DeleteGeneticTest(int id);
     }
 
     public class GeneticTestRepository : IGeneticTestRepository
@@ -47,7 +47,7 @@ namespace Biotest.Repositories
         }
 
 
-        public Task<GeneticTest> DeleteGeneticTest(int id)
+        public Task<GeneticTest?> DeleteGeneticTest(int id)
         {
             throw new NotImplementedException();
         }
