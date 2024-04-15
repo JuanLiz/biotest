@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Biotest.Model
 {
@@ -8,23 +9,23 @@ namespace Biotest.Model
     {
         [Key]
         public int PatientID { get; set; }
-        [Required]
-        public string Name { get; set; } 
-        [Required]
-        public string LastName { get; set; }
-        [Required]
-        public DateOnly BirthDate { get; set; }
-        [Required]
-        public int GenderID { get; set; }
-        [Required] 
-        public string Phone { get; set; }
-        [Required]
-        public string Address { get; set; }
-        [Required]
-        public string Email { get; set; }
+        [MaxLength(30)]
+        public required string Name { get; set; }
+        [MaxLength(30)]
+        public required string LastName { get; set; }
+        public required DateOnly BirthDate { get; set; }
+        public required int GenderID { get; set; }
+        [MaxLength(10)]
+        public required string Phone { get; set; }
+        [MaxLength(50)]
+        public required string Address { get; set; }
+        [MaxLength(320)]
+        public required string Email { get; set; }
+        [JsonIgnore]
+        public bool IsActive { get; set; } = true;
 
         [ForeignKey("GenderID")]
-        public Gender? Gender { get; set; }
+        public virtual Gender Gender { get; set; }
 
     }
 }

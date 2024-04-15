@@ -5,7 +5,7 @@ namespace Biotest.Model
     public class GeneticVariantType
     {
         [Key]
-        public required int GeneticVariantTypeID { get; set; }
+        public int GeneticVariantTypeID { get; set; }
         [Required]
         public required string Name { get; set; }
     }

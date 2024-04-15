@@ -8,7 +8,7 @@ namespace Biotest.Repositories
     {
         Task<IEnumerable<SampleType>> GetSampleTypes();
         Task<SampleType?> GetSampleType(int id);
-        Task<SampleType> PostSampleType(SampleType sampleType);
+        Task<SampleType> CreateSampleType(SampleType sampleType);
         Task<SampleType> PutSampleType(int id, SampleType sampleType);
         Task<SampleType> DeleteSampleType(int id);
 
@@ -34,7 +34,7 @@ namespace Biotest.Repositories
             return await _db.SampleType.ToListAsync();
         }
 
-        public async Task<SampleType> PostSampleType(SampleType sampleType)
+        public async Task<SampleType> CreateSampleType(SampleType sampleType)
         {
             _db.SampleType.Add(sampleType);
             await _db.SaveChangesAsync();

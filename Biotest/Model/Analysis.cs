@@ -6,7 +6,7 @@ namespace Biotest.Model
     public class Analysis
     {
         [Key]
-        public required int AnalysisID { get; set; }
+        public int AnalysisID { get; set; }
         [Required]
         public required int AnalysisTypeID { get; set; }
         [Required]
@@ -19,8 +19,8 @@ namespace Biotest.Model
         public required string Results { get; set; }
         
         [ForeignKey("AnalysisTypeID")]
-        public required AnalysisType AnalysisType { get; set; }
+        public virtual AnalysisType AnalysisType { get; set; }
         [ForeignKey("GeneticTestID")]
-        public required GeneticTest GeneticTest { get; set; }
+        public virtual GeneticTest GeneticTest { get; set; }
     }
 }

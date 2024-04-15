@@ -9,7 +9,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<Analysis>> GetAnalysis();
         Task<Analysis?> GetAnalysis(int id);
         Task<Analysis> PutAnalysis(int id, Analysis analysis);
-        Task<Analysis> PostAnalysis(Analysis analysis);
+        Task<Analysis> CreateAnalysis(Analysis analysis);
         Task<Analysis?> DeleteAnalysis(int id);
     }
 
@@ -32,7 +32,7 @@ namespace Biotest.Repositories
             return await _db.Analysis.ToListAsync();
         }
 
-        public async Task<Analysis> PostAnalysis(Analysis analysis)
+        public async Task<Analysis> CreateAnalysis(Analysis analysis)
         {
             _db.Analysis.Add(analysis);
             await _db.SaveChangesAsync();

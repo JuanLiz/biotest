@@ -9,7 +9,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<GeneticVariantType>> GetGeneticVariantTypes();
         Task<GeneticVariantType?> GetGeneticVariantType(int id);
         Task<GeneticVariantType> PutGeneticVariantType(int id, GeneticVariantType geneticVariantType);
-        Task<GeneticVariantType> PostGeneticVariantType(GeneticVariantType geneticVariantType);
+        Task<GeneticVariantType> CreateGeneticVariantType(GeneticVariantType geneticVariantType);
         Task<GeneticVariantType?> DeleteGeneticVariantType(int id);
 
     }
@@ -33,7 +33,7 @@ namespace Biotest.Repositories
             return await _db.GeneticVariantType.ToListAsync();
         }
 
-        public async Task<GeneticVariantType> PostGeneticVariantType(GeneticVariantType geneticVariantType)
+        public async Task<GeneticVariantType> CreateGeneticVariantType(GeneticVariantType geneticVariantType)
         {
             _db.GeneticVariantType.Add(geneticVariantType);
             await _db.SaveChangesAsync();

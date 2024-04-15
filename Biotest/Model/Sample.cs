@@ -6,7 +6,7 @@ namespace Biotest.Model
     public class Sample
     {
         [Key]
-        public required int SampleID { get; set; }
+        public int SampleID { get; set; }
         [Required]
         public required int PatientID { get; set; }
         [Required]
@@ -17,11 +17,11 @@ namespace Biotest.Model
         public required int SampleSourceID { get; set; }
 
         [ForeignKey("PatientID")]
-        public required Patient Patient { get; set; }
+        public virtual Patient? Patient { get; set; }
         [ForeignKey("SampleTypeID")]
-        public required SampleType SampleType { get; set; }
+        public virtual SampleType? SampleType { get; set; }
         [ForeignKey("SampleSourceID")]
-        public required SampleSource SampleSource { get; set; }
+        public virtual SampleSource? SampleSource { get; set; }
 
     }
 }

@@ -6,7 +6,7 @@ namespace Biotest.Model
     public class Employee
     {
         [Key]
-        public required int EmployeeID { get; set; }
+        public int EmployeeID { get; set; }
         [Required]
         public required string Name { get; set; }
         [Required]
@@ -17,9 +17,9 @@ namespace Biotest.Model
         public required int EmployeePositionID { get; set; }
 
         [ForeignKey("GenderID")]
-        public required Gender Gender { get; set; }
+        public virtual Gender Gender { get; set; }
         [ForeignKey("EmployeePositionID")]
-        public required EmployeePosition EmployeePosition { get; set; }
+        public virtual EmployeePosition? EmployeePosition { get; set; }
 
     }
 }

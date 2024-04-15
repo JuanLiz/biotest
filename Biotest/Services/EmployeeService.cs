@@ -8,7 +8,7 @@ namespace Biotest.Services
     {
         Task<IEnumerable<Employee>> GetEmployees();
         Task<Employee?> GetEmployee(int id);
-        Task<Employee> PostEmployee(Employee employee);
+        Task<Employee> CreateEmployee(Employee employee);
 
         Task<Employee> PutEmployee(
                        int id,
@@ -32,9 +32,9 @@ namespace Biotest.Services
             return await employeeRepository.GetEmployees();
         }
 
-        public async Task<Employee> PostEmployee(Employee employee)
+        public async Task<Employee> CreateEmployee(Employee employee)
         {
-            return await employeeRepository.PostEmployee(employee);
+            return await employeeRepository.CreateEmployee(employee);
         }
 
         public async Task<Employee> PutEmployee(

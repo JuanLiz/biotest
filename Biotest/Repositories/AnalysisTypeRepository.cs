@@ -9,7 +9,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<AnalysisType>> GetAnalysisTypes();
         Task<AnalysisType?> GetAnalysisType(int id);
         Task<AnalysisType> PutAnalysisType(int id, AnalysisType analysisType);
-        Task<AnalysisType> PostAnalysisType(AnalysisType analysisType);
+        Task<AnalysisType> CreateAnalysisType(AnalysisType analysisType);
         Task<AnalysisType?> DeleteAnalysisType(int id);
     }
 
@@ -34,7 +34,7 @@ namespace Biotest.Repositories
             // Simplified function to get all patients
             return await _db.AnalysisType.ToListAsync();
         }
-        public async Task<AnalysisType> PostAnalysisType(AnalysisType analysisType)
+        public async Task<AnalysisType> CreateAnalysisType(AnalysisType analysisType)
         {
             // Simplified function to add a patient
             _db.AnalysisType.Add(analysisType);

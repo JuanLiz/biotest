@@ -8,7 +8,7 @@ namespace Biotest.Services
     {
         Task<IEnumerable<PredictedEffect>> GetPredictedEffects();
         Task<PredictedEffect?> GetPredictedEffect(int id);
-        Task<PredictedEffect> PostPredictedEffect(PredictedEffect predictedEffect);
+        Task<PredictedEffect> CreatePredictedEffect(PredictedEffect predictedEffect);
         Task<PredictedEffect> PutPredictedEffect(
             int id,
             string? Name
@@ -37,9 +37,9 @@ namespace Biotest.Services
             return await _predictedEffectRepository.GetPredictedEffects();
         }
 
-        public async Task<PredictedEffect> PostPredictedEffect(PredictedEffect predictedEffect)
+        public async Task<PredictedEffect> CreatePredictedEffect(PredictedEffect predictedEffect)
         {
-            return await _predictedEffectRepository.PostPredictedEffect(predictedEffect);
+            return await _predictedEffectRepository.CreatePredictedEffect(predictedEffect);
         }
 
         public async Task<PredictedEffect> PutPredictedEffect(

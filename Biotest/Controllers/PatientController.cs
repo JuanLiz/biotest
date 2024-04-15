@@ -1,32 +1,25 @@
-﻿using Biotest.Model;
-using Biotest.Repositories;
-using Microsoft.AspNetCore.Http;
+﻿using System.ComponentModel.DataAnnotations;
+using Biotest.Model;
+using Biotest.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biotest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PatientController : ControllerBase
+    public class PatientController(IPatientService patientService) : ControllerBase
     {
-        private readonly IPatientRepository _patientRepository;
-
-        public PatientController(IPatientRepository patientRepository)
-        {
-            _patientRepository = patientRepository;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetPatients()
         {
-            var patients = await _patientRepository.GetPatients();
+            IEnumerable<Patient> patients = await patientService.GetPatients();
             return Ok(patients);
         }
 
-        [HttpGet ("{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetPatient(int id)
         {
-            var patient = await _patientRepository.GetPatient(id);
+            Patient? patient = await patientService.GetPatient(id);
             if (patient == null)
             {
                 return NotFound();
@@ -35,23 +28,62 @@ namespace Biotest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostPatient(Patient patient)
+        public async Task<IActionResult> CreatePatient(
+            [Required]
+            [MaxLength(30)]
+            string Name,
+            [Required]
+            [MaxLength(30)]
+            string LastName,
+            [Required]
+            DateOnly BirthDate,
+            [Required]
+            int GenderID,
+            [Required]
+            [Length(10, 10, ErrorMessage = "Phone number must be 10 digits")]
+            [Phone(ErrorMessage = "Invalid phone number")]
+            string Phone,
+            [Required]
+            [MaxLength(50)]
+            string Address,
+            [Required]
+            [MaxLength(320)]
+            [EmailAddress(ErrorMessage = "Invalid email address")]
+            string Email
+        )
         {
-            var newPatient = await _patientRepository.PostPatient(patient);
+            var newPatient = await patientService.CreatePatient(Name, LastName, BirthDate, GenderID, Phone, Address, Email);
             return CreatedAtAction(nameof(GetPatient), new { id = newPatient.PatientID }, newPatient);
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutPatient(int id, Patient patient)
+        public async Task<IActionResult> PutPatient(
+            [Required]
+            int PatientID,
+            [MaxLength(30)]
+            string? Name,
+            [MaxLength(30)]
+            string? LastName,
+            DateOnly? BirthDate,
+            int? GenderID,
+            [Length(10, 10, ErrorMessage = "Phone number must be 10 digits")]
+            [Phone(ErrorMessage = "Invalid phone number")]
+            string? Phone,
+            [MaxLength(50)]
+            string? Address,
+            [MaxLength(320)]
+            [EmailAddress(ErrorMessage = "Invalid email address")]
+            string? Email
+            )
         {
-            var newPatient = await _patientRepository.PutPatient(id, patient);
+            var newPatient = await patientService.PutPatient(PatientID, Name, LastName, BirthDate, GenderID, Phone, Address, Email);
             return Ok(newPatient);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeletePatient(int id)
         {
-            var patient = await _patientRepository.DeletePatient(id);
+            var patient = await patientService.DeletePatient(id);
             if (patient == null)
             {
                 return NotFound();

@@ -7,7 +7,7 @@ namespace Biotest.Model
     public class GeneticVariant
     {
         [Key]
-        public required int GeneticVariantID { get; set; }
+        public int GeneticVariantID { get; set; }
         [Required]
         public required int GeneticVariantTypeID { get; set; }
         [Required]
@@ -19,13 +19,13 @@ namespace Biotest.Model
         public required int PredictedEffectID { get; set; }
 
         [ForeignKey("GeneticVariantTypeID")]
-        public required GeneticVariantType GeneticVariantType { get; set; }
+        public virtual GeneticVariantType GeneticVariantType { get; set; }
         [ForeignKey("AnalysisID")]
-        public required Analysis Analysis { get; set; }
+        public virtual Analysis Analysis { get; set; }
         [ForeignKey("GenotypeID")]
-        public required Genotype Genotype { get; set; }
+        public virtual Genotype Genotype { get; set; }
         [ForeignKey("PredictedEffectID")]
-        public required PredictedEffect PredictedEffect { get; set; }
+        public virtual PredictedEffect PredictedEffect { get; set; }
 
     }
 }

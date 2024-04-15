@@ -8,7 +8,7 @@ namespace Biotest.Services
     {
         Task<IEnumerable<SampleType>> GetSampleTypes();
         Task<SampleType?> GetSampleType(int id);
-        Task<SampleType> PostSampleType(SampleType sampleType);
+        Task<SampleType> CreateSampleType(SampleType sampleType);
 
         Task<SampleType> PutSampleType(
                        int id,
@@ -29,9 +29,9 @@ namespace Biotest.Services
             return await sampleTypeRepository.GetSampleTypes();
         }
 
-        public async Task<SampleType> PostSampleType(SampleType sampleType)
+        public async Task<SampleType> CreateSampleType(SampleType sampleType)
         {
-            return await sampleTypeRepository.PostSampleType(sampleType);
+            return await sampleTypeRepository.CreateSampleType(sampleType);
         }
 
         public async Task<SampleType> PutSampleType(

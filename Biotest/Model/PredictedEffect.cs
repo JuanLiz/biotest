@@ -5,7 +5,7 @@ namespace Biotest.Model
     public class PredictedEffect
     {
         [Key]
-        public required int PredictedEffectID { get; set; }
+        public int PredictedEffectID { get; set; }
         [Required]
         public required string Name { get; set; }
     }

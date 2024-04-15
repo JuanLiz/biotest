@@ -9,7 +9,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<GeneticTest>> GetGeneticTest();
         Task<GeneticTest?> GetGeneticTest(int id);
         Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest);
-        Task<GeneticTest> PostGeneticTest(GeneticTest geneticTest);
+        Task<GeneticTest> CreateGeneticTest(GeneticTest geneticTest);
         Task<GeneticTest?> DeleteGeneticTest(int id);
     }
 
@@ -32,7 +32,7 @@ namespace Biotest.Repositories
             return await _db.GeneticTest.ToListAsync();
         }
 
-        public async Task<GeneticTest> PostGeneticTest(GeneticTest geneticTest)
+        public async Task<GeneticTest> CreateGeneticTest(GeneticTest geneticTest)
         {
             _db.GeneticTest.Add(geneticTest);
             await _db.SaveChangesAsync();

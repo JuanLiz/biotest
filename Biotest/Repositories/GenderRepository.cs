@@ -9,7 +9,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<Gender>> GetGenders();
         Task<Gender?> GetGender(int id);
         Task<Gender> PutGender(int id, Gender gender);
-        Task<Gender> PostGender(Gender gender);
+        Task<Gender> CreateGender(Gender gender);
         Task<Gender?> DeleteGender(int id);
         
     }
@@ -35,7 +35,7 @@ namespace Biotest.Repositories
             return await _db.Gender.ToListAsync();
         }
 
-        public async Task<Gender> PostGender(Gender gender)
+        public async Task<Gender> CreateGender(Gender gender)
         {
             // Simplified function to add a patient
             _db.Gender.Add(gender);

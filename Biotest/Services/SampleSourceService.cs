@@ -8,7 +8,7 @@ namespace Biotest.Services
     {
         Task<IEnumerable<SampleSource>> GetSampleSources();
         Task<SampleSource?> GetSampleSource(int id);
-        Task<SampleSource> PostSampleSource(SampleSource sampleSource);
+        Task<SampleSource> CreateSampleSource(SampleSource sampleSource);
 
         Task<SampleSource> PutSampleSource(
             int id,
@@ -30,9 +30,9 @@ namespace Biotest.Services
             return await sampleSourceRepository.GetSampleSources();
         }
 
-        public async Task<SampleSource> PostSampleSource(SampleSource sampleSource)
+        public async Task<SampleSource> CreateSampleSource(SampleSource sampleSource)
         {
-            return await sampleSourceRepository.PostSampleSource(sampleSource);
+            return await sampleSourceRepository.CreateSampleSource(sampleSource);
         }
 
         public async Task<SampleSource> PutSampleSource(

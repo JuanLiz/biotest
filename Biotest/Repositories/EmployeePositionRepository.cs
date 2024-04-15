@@ -9,7 +9,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<EmployeePosition>> GetEmployeePositions();
         Task<EmployeePosition?> GetEmployeePosition(int id);
         Task<EmployeePosition> PutEmployeePosition(int id, EmployeePosition employeePosition);
-        Task<EmployeePosition> PostEmployeePosition(EmployeePosition employeePosition);
+        Task<EmployeePosition> CreateEmployeePosition(EmployeePosition employeePosition);
         Task<EmployeePosition?> DeleteEmployeePosition(int id);
     }
 
@@ -35,7 +35,7 @@ namespace Biotest.Repositories
             return await _db.EmployeePosition.ToListAsync();
         }
 
-        public async Task<EmployeePosition> PostEmployeePosition(EmployeePosition employeePosition)
+        public async Task<EmployeePosition> CreateEmployeePosition(EmployeePosition employeePosition)
         {
             // Simplified function to add a patient
             _db.EmployeePosition.Add(employeePosition);

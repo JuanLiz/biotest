@@ -1,4 +1,5 @@
-﻿using Biotest.Model;
+﻿using System.Linq.Expressions;
+using Biotest.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Context
@@ -29,5 +30,15 @@ namespace Biotest.Context
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
+        // Filter all entities with IsActive property
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Patient>().HasQueryFilter(p => p.IsActive);
+        }
     }
 }

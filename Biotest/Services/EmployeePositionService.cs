@@ -8,7 +8,7 @@ namespace Biotest.Services
     {
         Task<IEnumerable<EmployeePosition>> GetEmployeePositions();
         Task<EmployeePosition?> GetEmployeePosition(int id);
-        Task<EmployeePosition> PostEmployeePosition(EmployeePosition employeePosition);
+        Task<EmployeePosition> CreateEmployeePosition(EmployeePosition employeePosition);
 
         Task<EmployeePosition> PutEmployeePosition(
                        int id,
@@ -30,9 +30,9 @@ namespace Biotest.Services
             return await employeePositionRepository.GetEmployeePositions();
         }
 
-        public async Task<EmployeePosition> PostEmployeePosition(EmployeePosition employeePosition)
+        public async Task<EmployeePosition> CreateEmployeePosition(EmployeePosition employeePosition)
         {
-            return await employeePositionRepository.PostEmployeePosition(employeePosition);
+            return await employeePositionRepository.CreateEmployeePosition(employeePosition);
         }
 
         public async Task<EmployeePosition> PutEmployeePosition(

@@ -8,7 +8,7 @@ namespace Biotest.Repositories
     {
         Task<IEnumerable<PredictedEffect>> GetPredictedEffects();
         Task<PredictedEffect> GetPredictedEffect(int id);
-        Task<PredictedEffect> PostPredictedEffect(PredictedEffect predictedEffect);
+        Task<PredictedEffect> CreatePredictedEffect(PredictedEffect predictedEffect);
         Task<PredictedEffect> PutPredictedEffect(int id, PredictedEffect predictedEffect);
         Task<PredictedEffect?> DeletePredictedEffect(int id);
     }
@@ -32,7 +32,7 @@ namespace Biotest.Repositories
             return await _db.PredictedEffect.ToListAsync();
         }
 
-        public async Task<PredictedEffect> PostPredictedEffect(PredictedEffect predictedEffect)
+        public async Task<PredictedEffect> CreatePredictedEffect(PredictedEffect predictedEffect)
         {
             _db.PredictedEffect.Add(predictedEffect);
             await _db.SaveChangesAsync();

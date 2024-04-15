@@ -7,7 +7,7 @@ namespace Biotest.Services
     {
         Task<IEnumerable<AnalysisType>> GetAnalysisTypes();
         Task<AnalysisType?> GetAnalysisType(int id);
-        Task<AnalysisType> PostAnalysisType(AnalysisType analysisType);
+        Task<AnalysisType> CreateAnalysisType(AnalysisType analysisType);
 
         Task<AnalysisType?> PutAnalysisType(
             int id,
@@ -28,9 +28,9 @@ namespace Biotest.Services
                 return await analysisTypeRepository.GetAnalysisTypes();
             }
 
-            public async Task<AnalysisType> PostAnalysisType(AnalysisType analysisType)
+            public async Task<AnalysisType> CreateAnalysisType(AnalysisType analysisType)
             {
-                return await analysisTypeRepository.PostAnalysisType(analysisType);
+                return await analysisTypeRepository.CreateAnalysisType(analysisType);
             }
 
             public async Task<AnalysisType> PutAnalysisType(

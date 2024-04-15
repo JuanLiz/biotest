@@ -6,7 +6,7 @@ namespace Biotest.Model
     public class GeneticTest
     {
         [Key]
-        public required int GeneticTestID { get; set; }
+        public int GeneticTestID { get; set; }
         [Required]
         public required int GeneticTestTypeID { get; set; }
         //TODO: Solve cascade error
@@ -19,10 +19,10 @@ namespace Biotest.Model
         public required string Result { get; set; }
 
         [ForeignKey("GeneticTestTypeID")]
-        public required GeneticTestType GeneticTestType { get; set; }
+        public virtual GeneticTestType GeneticTestType { get; set; }
         [ForeignKey("SampleID")]
-        public required Sample Sample { get; set; }
+        public virtual Sample Sample { get; set; }
         [ForeignKey("EmployeeID")]
-        public required Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
