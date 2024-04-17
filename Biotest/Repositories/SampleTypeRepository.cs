@@ -9,48 +9,45 @@ namespace Biotest.Repositories
         Task<IEnumerable<SampleType>> GetSampleTypes();
         Task<SampleType?> GetSampleType(int id);
         Task<SampleType> CreateSampleType(SampleType sampleType);
-        Task<SampleType> PutSampleType(int id, SampleType sampleType);
-        Task<SampleType> DeleteSampleType(int id);
-
+        Task<SampleType> UpdateSampleType(SampleType sampleType);
+        Task<SampleType?> DeleteSampleType(int id);
 
     }
 
-    public class SampleTypeRepository : ISampleTypeRepository
+    public class SampleTypeRepository(ApplicationDbContext db) : ISampleTypeRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public SampleTypeRepository(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
         public async Task<SampleType?> GetSampleType(int id)
         {
-            return await _db.SampleType.FindAsync(id);
+            return await db.SampleType.FindAsync(id);
         }
 
         public async Task<IEnumerable<SampleType>> GetSampleTypes()
         {
-            return await _db.SampleType.ToListAsync();
+            return await db.SampleType.ToListAsync();
         }
 
         public async Task<SampleType> CreateSampleType(SampleType sampleType)
         {
-            _db.SampleType.Add(sampleType);
-            await _db.SaveChangesAsync();
+            db.SampleType.Add(sampleType);
+            await db.SaveChangesAsync();
             return sampleType;
         }
 
-        public async Task<SampleType> PutSampleType(int id, SampleType sampleType)
+        public async Task<SampleType> UpdateSampleType(SampleType sampleType)
         {
-            _db.Entry(sampleType).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(sampleType).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return sampleType;
         }
 
-        public async Task<SampleType> DeleteSampleType(int id)
+        public async Task<SampleType?> DeleteSampleType(int id)
         {
-            throw new NotImplementedException();
+            SampleType? sampleType = await db.SampleType.FindAsync(id);
+            if (sampleType == null) return sampleType;
+            sampleType.IsActive = false;
+            db.Entry(sampleType).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return sampleType;
         }
 
     }

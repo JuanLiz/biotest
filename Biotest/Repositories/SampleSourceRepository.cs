@@ -7,50 +7,48 @@ namespace Biotest.Repositories
     public interface ISampleSourceRepository
     {
         Task<IEnumerable<SampleSource>> GetSampleSources();
-        Task<SampleSource> GetSampleSource(int id);
+        Task<SampleSource?> GetSampleSource(int id);
         Task<SampleSource> CreateSampleSource(SampleSource sampleSource);
-        Task<SampleSource> PutSampleSource(int id, SampleSource sampleSource);
+        Task<SampleSource> UpdateSampleSource(SampleSource sampleSource);
         Task<SampleSource?> DeleteSampleSource(int id);
     }
 
-    public class SampleSourceRepository : ISampleSourceRepository
+    public class SampleSourceRepository(ApplicationDbContext db) : ISampleSourceRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public SampleSourceRepository(ApplicationDbContext db)
+        public async Task<SampleSource?> GetSampleSource(int id)
         {
-            _db = db;
-        }
-
-        public async Task<SampleSource> GetSampleSource(int id)
-        {
-            return await _db.SampleSource.FindAsync(id);
+            return await db.SampleSource.FindAsync(id);
         }
 
         public async Task<IEnumerable<SampleSource>> GetSampleSources()
         {
-            return await _db.SampleSource.ToListAsync();
+            return await db.SampleSource.ToListAsync();
         }
 
         public async Task<SampleSource> CreateSampleSource(SampleSource sampleSource)
         {
-            _db.SampleSource.Add(sampleSource);
-            await _db.SaveChangesAsync();
+            db.SampleSource.Add(sampleSource);
+            await db.SaveChangesAsync();
             return sampleSource;
         }
 
-        public async Task<SampleSource> PutSampleSource(int id, SampleSource sampleSource)
+        public async Task<SampleSource> UpdateSampleSource(SampleSource sampleSource)
         {
-            _db.Entry(sampleSource).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(sampleSource).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return sampleSource;
         }
 
-        public Task<SampleSource?> DeleteSampleSource(int id)
+        public async Task<SampleSource?> DeleteSampleSource(int id)
         {
-            throw new NotImplementedException();
+            SampleSource? sampleSource = await db.SampleSource.FindAsync(id);
+            if (sampleSource == null) return sampleSource;
+            sampleSource.IsActive = false;
+            db.Entry(sampleSource).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return sampleSource;
         }
-        
+
     }
-    
+
 }

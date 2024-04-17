@@ -17,7 +17,7 @@ namespace Biotest.Model
         [ForeignKey(nameof(EmployeePosition))]
         public required int EmployeePositionID { get; set; }
         [JsonIgnore]
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
 
         public virtual Gender? Gender { get; set; }

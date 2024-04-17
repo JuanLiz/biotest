@@ -8,50 +8,48 @@ namespace Biotest.Repositories
     {
         Task<IEnumerable<GeneticTest>> GetGeneticTest();
         Task<GeneticTest?> GetGeneticTest(int id);
-        Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest);
+        Task<GeneticTest> UpdateGeneticTest(GeneticTest geneticTest);
         Task<GeneticTest> CreateGeneticTest(GeneticTest geneticTest);
         Task<GeneticTest?> DeleteGeneticTest(int id);
     }
 
-    public class GeneticTestRepository : IGeneticTestRepository
+    public class GeneticTestRepository(ApplicationDbContext db) : IGeneticTestRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public GeneticTestRepository(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
         public async Task<GeneticTest?> GetGeneticTest(int id)
         {
-            return await _db.GeneticTest.FindAsync();
+            return await db.GeneticTest.FindAsync();
         }
 
         public async Task<IEnumerable<GeneticTest>> GetGeneticTest()
         {
-            return await _db.GeneticTest.ToListAsync();
+            return await db.GeneticTest.ToListAsync();
         }
 
         public async Task<GeneticTest> CreateGeneticTest(GeneticTest geneticTest)
         {
-            _db.GeneticTest.Add(geneticTest);
-            await _db.SaveChangesAsync();
+            db.GeneticTest.Add(geneticTest);
+            await db.SaveChangesAsync();
             return geneticTest;
         }
 
-        public async Task<GeneticTest> PutGeneticTest(int id, GeneticTest geneticTest)
+        public async Task<GeneticTest> UpdateGeneticTest(GeneticTest geneticTest)
         {
-            _db.Entry(geneticTest).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(geneticTest).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return geneticTest;
         }
 
 
-        public Task<GeneticTest?> DeleteGeneticTest(int id)
+        public async Task<GeneticTest?> DeleteGeneticTest(int id)
         {
-            throw new NotImplementedException();
+            GeneticTest? geneticTest = await db.GeneticTest.FindAsync(id);
+            if (geneticTest == null) return geneticTest;
+            geneticTest.IsActive = false;
+            db.Entry(geneticTest).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return geneticTest;
         }
-        
+
     }
-    
-}   
+
+}

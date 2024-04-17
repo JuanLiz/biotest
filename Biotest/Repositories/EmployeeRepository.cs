@@ -9,51 +9,48 @@ namespace Biotest.Repositories
         Task<IEnumerable<Employee>> GetEmployees();
         Task<Employee?> GetEmployee(int id);
         Task<Employee> CreateEmployee(Employee employee);
-        Task<Employee> PutEmployee(int id, Employee employee);
+        Task<Employee> UpdateEmployee(Employee employee);
         Task<Employee?> DeleteEmployee(int id);
     }
 
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository(ApplicationDbContext db) : IEmployeeRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public EmployeeRepository(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
         public async Task<Employee?> GetEmployee(int id)
         {
             // Simplified function to get a patient by id
-            return await _db.Employee.FindAsync(id);
+            return await db.Employee.FindAsync(id);
         }
 
         public async Task<IEnumerable<Employee>> GetEmployees()
         {
             // Simplified function to get all patients
-            return await _db.Employee.ToListAsync();
+            return await db.Employee.ToListAsync();
         }
 
         public async Task<Employee> CreateEmployee(Employee employee)
         {
             // Simplified function to add a patient
-            _db.Employee.Add(employee);
-            await _db.SaveChangesAsync();
+            db.Employee.Add(employee);
+            await db.SaveChangesAsync();
             return employee;
         }
 
-        public async Task<Employee> PutEmployee(int id, Employee employee)
+        public async Task<Employee> UpdateEmployee(Employee employee)
         {
             // Simplified function to update a patient
-            _db.Entry(employee).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(employee).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return employee;
         }
 
-        public Task<Employee?> DeleteEmployee(int id)
+        public async Task<Employee?> DeleteEmployee(int id)
         {
-            // Change boolean state
-            throw new NotImplementedException();
+            Employee? employee = await db.Employee.FindAsync(id);
+            if (employee == null) return employee;
+            employee.IsActive = false;
+            db.Entry(employee).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return employee;
         }
 
     }

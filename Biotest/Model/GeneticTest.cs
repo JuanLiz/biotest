@@ -18,7 +18,7 @@ namespace Biotest.Model
         [MaxLength(300)]
         public required string Result { get; set; }
         [JsonIgnore]
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
 
         public virtual GeneticTestType? GeneticTestType { get; set; }

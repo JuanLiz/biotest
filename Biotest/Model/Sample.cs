@@ -16,7 +16,7 @@ namespace Biotest.Model
         [ForeignKey(nameof(SampleSource))]
         public required int SampleSourceID { get; set; }
         [JsonIgnore]
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
         public virtual Patient? Patient { get; set; }
         

@@ -10,6 +10,6 @@ namespace Biotest.Model
         [MaxLength(30)]
         public required string Name { get; set; }
         [JsonIgnore]
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
     }
 }

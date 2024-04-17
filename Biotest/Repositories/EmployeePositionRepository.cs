@@ -8,55 +8,47 @@ namespace Biotest.Repositories
     {
         Task<IEnumerable<EmployeePosition>> GetEmployeePositions();
         Task<EmployeePosition?> GetEmployeePosition(int id);
-        Task<EmployeePosition> PutEmployeePosition(int id, EmployeePosition employeePosition);
+        Task<EmployeePosition> UpdateEmployeePosition(EmployeePosition employeePosition);
         Task<EmployeePosition> CreateEmployeePosition(EmployeePosition employeePosition);
         Task<EmployeePosition?> DeleteEmployeePosition(int id);
     }
 
-    public class EmployeePositionRepository : IEmployeePositionRepository
+    public class EmployeePositionRepository(ApplicationDbContext db) : IEmployeePositionRepository
     {
-
-        private readonly ApplicationDbContext _db;
-
-        public EmployeePositionRepository(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
         public async Task<EmployeePosition?> GetEmployeePosition(int id)
         {
-            // Simplified function to get a patient by id
-            return await _db.EmployeePosition.FindAsync(id);
+            return await db.EmployeePosition.FindAsync(id);
         }
 
         public async Task<IEnumerable<EmployeePosition>> GetEmployeePositions()
         {
-            // Simplified function to get all patients
-            return await _db.EmployeePosition.ToListAsync();
+            return await db.EmployeePosition.ToListAsync();
         }
 
         public async Task<EmployeePosition> CreateEmployeePosition(EmployeePosition employeePosition)
         {
-            // Simplified function to add a patient
-            _db.EmployeePosition.Add(employeePosition);
-            await _db.SaveChangesAsync();
+            db.EmployeePosition.Add(employeePosition);
+            await db.SaveChangesAsync();
             return employeePosition;
         }
 
-        public async Task<EmployeePosition> PutEmployeePosition(int id, EmployeePosition employeePosition)
+        public async Task<EmployeePosition> UpdateEmployeePosition(EmployeePosition employeePosition)
         {
-            // Simplified function to update a patient
-            _db.Entry(employeePosition).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(employeePosition).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return employeePosition;
         }
 
-        public Task<EmployeePosition?> DeleteEmployeePosition(int id)
+        public async Task<EmployeePosition?> DeleteEmployeePosition(int id)
         {
-            // Change boolean state
-            throw new NotImplementedException();
+            EmployeePosition? employeePosition = await db.EmployeePosition.FindAsync(id);
+            if (employeePosition == null) return employeePosition;
+            employeePosition.IsActive = false;
+            db.Entry(employeePosition).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return employeePosition;
         }
 
     }
-    
+
 }

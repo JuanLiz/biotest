@@ -23,7 +23,7 @@ namespace Biotest.Model
         [MaxLength(320)]
         public required string Email { get; set; }
         [JsonIgnore]
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
         public virtual Gender? Gender { get; set; }
 

@@ -7,50 +7,48 @@ namespace Biotest.Repositories
     public interface ISampleRepository
     {
         Task<IEnumerable<Sample>> GetSamples();
-        Task<Sample> GetSample(int id);
+        Task<Sample?> GetSample(int id);
         Task<Sample> CreateSample(Sample sample);
-        Task<Sample> PutSample(int id, Sample sample);
+        Task<Sample> UpdateSample(Sample sample);
         Task<Sample?> DeleteSample(int id);
 
     }
 
-    public class SampleRepository : ISampleRepository
+    public class SampleRepository(ApplicationDbContext db) : ISampleRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public SampleRepository(ApplicationDbContext db)
+        public async Task<Sample?> GetSample(int id)
         {
-            _db = db;
-        }
-
-        public async Task<Sample> GetSample(int id)
-        {
-            return await _db.Sample.FindAsync(id);
+            return await db.Sample.FindAsync(id);
         }
 
         public async Task<IEnumerable<Sample>> GetSamples()
         {
-            return await _db.Sample.ToListAsync();
+            return await db.Sample.ToListAsync();
         }
 
         public async Task<Sample> CreateSample(Sample sample)
         {
-            _db.Sample.Add(sample);
-            await _db.SaveChangesAsync();
+            db.Sample.Add(sample);
+            await db.SaveChangesAsync();
             return sample;
         }
 
-        public async Task<Sample> PutSample(int id, Sample sample)
+        public async Task<Sample> UpdateSample(Sample sample)
         {
-            _db.Entry(sample).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(sample).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return sample;
         }
 
-        public Task<Sample?> DeleteSample(int id)
+        public async Task<Sample?> DeleteSample(int id)
         {
-            throw new NotImplementedException();
+            Sample? sample = await db.Sample.FindAsync(id);
+            if (sample == null) return sample;
+            sample.IsActive = false;
+            db.Entry(sample).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return sample;
         }
     }
-    
+
 }

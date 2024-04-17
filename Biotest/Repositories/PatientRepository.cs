@@ -10,7 +10,7 @@ namespace Biotest.Repositories
         Task<IEnumerable<Patient>> GetPatients();
         Task<Patient?> GetPatient(int id);
         Task<Patient> CreatePatient(Patient patient);
-        Task<Patient> PutPatient(Patient patient);
+        Task<Patient> UpdatePatient(Patient patient);
         Task<Patient?> DeletePatient(int id);
     }
 
@@ -33,7 +33,7 @@ namespace Biotest.Repositories
             return patient;
         }
 
-        public async Task<Patient> PutPatient(Patient patient)
+        public async Task<Patient> UpdatePatient(Patient patient)
         {
             db.Entry(patient).State = EntityState.Modified;
             await db.SaveChangesAsync();

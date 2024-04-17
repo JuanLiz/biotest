@@ -20,7 +20,7 @@ namespace Biotest.Model
         [ForeignKey(nameof(PredictedEffect))]
         public required int PredictedEffectID { get; set; }
         [JsonIgnore]
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
         public virtual GeneticVariantType? GeneticVariantType { get; set; }
         public virtual Analysis? Analysis { get; set; }

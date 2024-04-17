@@ -56,8 +56,8 @@ namespace Biotest.Controllers
             return CreatedAtAction(nameof(GetPatient), new { id = newPatient.PatientID }, newPatient);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> PutPatient(
+        [HttpUpdate]
+        public async Task<IActionResult> UpdatePatient(
             [Required]
             int PatientID,
             [MaxLength(30)]
@@ -76,7 +76,7 @@ namespace Biotest.Controllers
             string? Email
             )
         {
-            var newPatient = await patientService.PutPatient(PatientID, Name, LastName, BirthDate, GenderID, Phone, Address, Email);
+            var newPatient = await patientService.UpdatePatient(PatientID, Name, LastName, BirthDate, GenderID, Phone, Address, Email);
             return Ok(newPatient);
         }
 

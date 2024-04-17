@@ -8,48 +8,46 @@ namespace Biotest.Repositories
     {
         Task<IEnumerable<GeneticVariantType>> GetGeneticVariantTypes();
         Task<GeneticVariantType?> GetGeneticVariantType(int id);
-        Task<GeneticVariantType> PutGeneticVariantType(int id, GeneticVariantType geneticVariantType);
+        Task<GeneticVariantType> UpdateGeneticVariantType(GeneticVariantType geneticVariantType);
         Task<GeneticVariantType> CreateGeneticVariantType(GeneticVariantType geneticVariantType);
         Task<GeneticVariantType?> DeleteGeneticVariantType(int id);
 
     }
 
-    public class GeneticVariantTypeRepository : IGeneticVariantTypeRepository
+    public class GeneticVariantTypeRepository(ApplicationDbContext db) : IGeneticVariantTypeRepository
     {
-       private readonly ApplicationDbContext _db;
-
-        public GeneticVariantTypeRepository(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
         public async Task<GeneticVariantType?> GetGeneticVariantType(int id)
         {
-            return await _db.GeneticVariantType.FindAsync(id);
+            return await db.GeneticVariantType.FindAsync(id);
         }
 
         public async Task<IEnumerable<GeneticVariantType>> GetGeneticVariantTypes()
         {
-            return await _db.GeneticVariantType.ToListAsync();
+            return await db.GeneticVariantType.ToListAsync();
         }
 
         public async Task<GeneticVariantType> CreateGeneticVariantType(GeneticVariantType geneticVariantType)
         {
-            _db.GeneticVariantType.Add(geneticVariantType);
-            await _db.SaveChangesAsync();
+            db.GeneticVariantType.Add(geneticVariantType);
+            await db.SaveChangesAsync();
             return geneticVariantType;
         }
 
-        public async Task<GeneticVariantType> PutGeneticVariantType(int id, GeneticVariantType geneticVariantType)
+        public async Task<GeneticVariantType> UpdateGeneticVariantType(GeneticVariantType geneticVariantType)
         {
-            _db.Entry(geneticVariantType).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(geneticVariantType).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return geneticVariantType;
         }
 
-        public Task<GeneticVariantType?> DeleteGeneticVariantType(int id)
+        public async Task<GeneticVariantType?> DeleteGeneticVariantType(int id)
         {
-            throw new NotImplementedException();
+            GeneticVariantType? geneticVariantType = await db.GeneticVariantType.FindAsync(id);
+            if (geneticVariantType == null) return geneticVariantType;
+            geneticVariantType.IsActive = false;
+            db.Entry(geneticVariantType).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return geneticVariantType;
         }
         
     }

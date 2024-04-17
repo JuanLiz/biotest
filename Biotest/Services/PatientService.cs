@@ -20,7 +20,7 @@ namespace Biotest.Services
             string Address,
             string Email
             );
-        Task<Patient> PutPatient(
+        Task<Patient> UpdatePatient(
             int PatientID,
             string? name,
             string? lastName,
@@ -68,7 +68,7 @@ namespace Biotest.Services
             });
         }
 
-        public async Task<Patient> PutPatient(
+        public async Task<Patient> UpdatePatient(
             int PatientID,
             string? name,
             string? lastName,
@@ -94,7 +94,7 @@ namespace Biotest.Services
                 newPatient.Phone = phone ?? newPatient.Phone;
                 newPatient.Address = address ?? newPatient.Address;
                 newPatient.Email = email ?? newPatient.Email;
-                return await patientRepository.PutPatient(newPatient);
+                return await patientRepository.UpdatePatient(newPatient);
             }
         }
 

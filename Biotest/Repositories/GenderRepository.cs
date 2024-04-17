@@ -8,58 +8,49 @@ namespace Biotest.Repositories
     {
         Task<IEnumerable<Gender>> GetGenders();
         Task<Gender?> GetGender(int id);
-        Task<Gender> PutGender(int id, Gender gender);
+        Task<Gender> UpdateGender(Gender gender);
         Task<Gender> CreateGender(Gender gender);
         Task<Gender?> DeleteGender(int id);
-        
+
     }
 
-    public class GenderRepository : IGenderRepository
+    public class GenderRepository(ApplicationDbContext db) : IGenderRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public GenderRepository(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
         public async Task<Gender?> GetGender(int id)
         {
-            // Simplified function to get a patient by id
-            return await _db.Gender.FindAsync(id);
+            return await db.Gender.FindAsync(id);
         }
 
         public async Task<IEnumerable<Gender>> GetGenders()
         {
-            // Simplified function to get all patients
-            return await _db.Gender.ToListAsync();
+            return await db.Gender.ToListAsync();
         }
 
         public async Task<Gender> CreateGender(Gender gender)
         {
-            // Simplified function to add a patient
-            _db.Gender.Add(gender);
-            await _db.SaveChangesAsync();
+            db.Gender.Add(gender);
+            await db.SaveChangesAsync();
             return gender;
         }
 
-        public async Task<Gender> PutGender(int id, Gender gender)
+        public async Task<Gender> UpdateGender(Gender gender)
         {
-            // Simplified function to update a patient
-            _db.Entry(gender).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(gender).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return gender;
         }
 
-        public Task<Gender?> DeleteGender(int id)
+        public async Task<Gender?> DeleteGender(int id)
         {
-            // Change boolean state
-            throw new NotImplementedException();
+            Gender? gender = await db.Gender.FindAsync(id);
+            if (gender == null) return gender;
+            gender.IsActive = false;
+            db.Entry(gender).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return gender;
         }
-
-
 
     }
-  
+
 }
 

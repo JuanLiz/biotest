@@ -19,7 +19,7 @@ namespace Biotest.Model
         [MaxLength(500)]
         public required string Results { get; set; }
         [JsonIgnore]
-        public required bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
 
         public virtual AnalysisType? AnalysisType { get; set; }

@@ -7,48 +7,46 @@ namespace Biotest.Repositories
     public interface IPredictedEffectRepository
     {
         Task<IEnumerable<PredictedEffect>> GetPredictedEffects();
-        Task<PredictedEffect> GetPredictedEffect(int id);
+        Task<PredictedEffect?> GetPredictedEffect(int id);
         Task<PredictedEffect> CreatePredictedEffect(PredictedEffect predictedEffect);
-        Task<PredictedEffect> PutPredictedEffect(int id, PredictedEffect predictedEffect);
+        Task<PredictedEffect> UpdatePredictedEffect(PredictedEffect predictedEffect);
         Task<PredictedEffect?> DeletePredictedEffect(int id);
     }
 
-    public class PredictedEffectRepository : IPredictedEffectRepository
+    public class PredictedEffectRepository(ApplicationDbContext db) : IPredictedEffectRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public PredictedEffectRepository(ApplicationDbContext db)
+        public async Task<PredictedEffect?> GetPredictedEffect(int id)
         {
-            _db = db;
-        }
-
-        public async Task<PredictedEffect> GetPredictedEffect(int id)
-        {
-            return await _db.PredictedEffect.FindAsync(id);
+            return await db.PredictedEffect.FindAsync(id);
         }
 
         public async Task<IEnumerable<PredictedEffect>> GetPredictedEffects()
         {
-            return await _db.PredictedEffect.ToListAsync();
+            return await db.PredictedEffect.ToListAsync();
         }
 
         public async Task<PredictedEffect> CreatePredictedEffect(PredictedEffect predictedEffect)
         {
-            _db.PredictedEffect.Add(predictedEffect);
-            await _db.SaveChangesAsync();
+            db.PredictedEffect.Add(predictedEffect);
+            await db.SaveChangesAsync();
             return predictedEffect;
         }
 
-        public async Task<PredictedEffect> PutPredictedEffect(int id, PredictedEffect predictedEffect)
+        public async Task<PredictedEffect> UpdatePredictedEffect(PredictedEffect predictedEffect)
         {
-            _db.Entry(predictedEffect).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(predictedEffect).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return predictedEffect;
         }
 
-        public Task<PredictedEffect?> DeletePredictedEffect(int id)
+        public async Task<PredictedEffect?> DeletePredictedEffect(int id)
         {
-            throw new NotImplementedException();
+            PredictedEffect? predictedEffect = await db.PredictedEffect.FindAsync(id);
+            if (predictedEffect == null) return predictedEffect;
+            predictedEffect.IsActive = false;
+            db.Entry(predictedEffect).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return predictedEffect;
         }
 
     }

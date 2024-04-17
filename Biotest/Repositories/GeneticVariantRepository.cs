@@ -8,49 +8,47 @@ namespace Biotest.Repositories
     {
         Task<IEnumerable<GeneticVariant>> GetGeneticVariants();
         Task<GeneticVariant?> GetGeneticVariant(int id);
-        Task<GeneticVariant> PutGeneticVariant (int id, GeneticVariant geneticVariant);
+        Task<GeneticVariant> UpdateGeneticVariant(GeneticVariant geneticVariant);
         Task<GeneticVariant> CreateGeneticVariant(GeneticVariant geneticVariant);
         Task<GeneticVariant?> DeleteGeneticVariant(int id);
     }
 
-    public class GeneticVariantRepository : IGeneticVariantRepository
+    public class GeneticVariantRepository(ApplicationDbContext db) : IGeneticVariantRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public GeneticVariantRepository(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
         public async Task<GeneticVariant?> GetGeneticVariant(int id)
         {
-            return await _db.GeneticVariant.FindAsync(id);
+            return await db.GeneticVariant.FindAsync(id);
         }
 
         public async Task<IEnumerable<GeneticVariant>> GetGeneticVariants()
         {
-            return await _db.GeneticVariant.ToListAsync();
+            return await db.GeneticVariant.ToListAsync();
         }
 
         public async Task<GeneticVariant> CreateGeneticVariant(GeneticVariant geneticVariant)
         {
-            _db.GeneticVariant.Add(geneticVariant);
-            await _db.SaveChangesAsync();
-            return geneticVariant;
-        }  
-
-        public async Task<GeneticVariant> PutGeneticVariant(int id, GeneticVariant geneticVariant)
-        {
-            _db.Entry(geneticVariant).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.GeneticVariant.Add(geneticVariant);
+            await db.SaveChangesAsync();
             return geneticVariant;
         }
 
-        public Task<GeneticVariant?> DeleteGeneticVariant(int id)
+        public async Task<GeneticVariant> UpdateGeneticVariant(GeneticVariant geneticVariant)
         {
-            throw new NotImplementedException();
+            db.Entry(geneticVariant).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return geneticVariant;
         }
-        
+
+        public async Task<GeneticVariant?> DeleteGeneticVariant(int id)
+        {
+            GeneticVariant? geneticVariant = await db.GeneticVariant.FindAsync(id);
+            if (geneticVariant == null) return geneticVariant;
+            geneticVariant.IsActive = false;
+            db.Entry(geneticVariant).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return geneticVariant;
+        }
+
     }
-    
+
 }

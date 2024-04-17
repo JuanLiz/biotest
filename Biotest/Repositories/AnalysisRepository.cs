@@ -8,50 +8,46 @@ namespace Biotest.Repositories
     {
         Task<IEnumerable<Analysis>> GetAnalysis();
         Task<Analysis?> GetAnalysis(int id);
-        Task<Analysis> PutAnalysis(int id, Analysis analysis);
+        Task<Analysis> UpdateAnalysis(Analysis analysis);
         Task<Analysis> CreateAnalysis(Analysis analysis);
         Task<Analysis?> DeleteAnalysis(int id);
     }
 
-    public class AnalysisRepository : IAnalysisRepository
+    public class AnalysisRepository(ApplicationDbContext db) : IAnalysisRepository
     {
-
-        private readonly ApplicationDbContext _db;
-        public AnalysisRepository(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
         public async Task<Analysis?> GetAnalysis(int id)
         {
-            return await _db.Analysis.FindAsync(id);
+            return await db.Analysis.FindAsync(id);
         }
 
         public async Task<IEnumerable<Analysis>> GetAnalysis()
         {
-            return await _db.Analysis.ToListAsync();
+            return await db.Analysis.ToListAsync();
         }
 
         public async Task<Analysis> CreateAnalysis(Analysis analysis)
         {
-            _db.Analysis.Add(analysis);
-            await _db.SaveChangesAsync();
+            db.Analysis.Add(analysis);
+            await db.SaveChangesAsync();
             return analysis;
         }
 
-        public async Task<Analysis> PutAnalysis(int id, Analysis analysis)
+        public async Task<Analysis> UpdateAnalysis(Analysis analysis)
         {
-            // Simplified function to update a patient
-            _db.Entry(analysis).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            db.Entry(analysis).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return analysis;
         }
 
-        public Task<Analysis?> DeleteAnalysis(int id)
+        public async Task<Analysis?> DeleteAnalysis(int id)
         {
-            // Change boolean state
-            throw new NotImplementedException();
+            Analysis? analysis = await db.Analysis.FindAsync(id);
+            if (analysis == null) return analysis;
+            analysis.IsActive = false;
+            db.Entry(analysis).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return analysis;
         }
     }
-    
+
 }
