@@ -56,7 +56,7 @@ namespace Biotest.Controllers
             return CreatedAtAction(nameof(GetPatient), new { id = newPatient.PatientID }, newPatient);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         public async Task<IActionResult> UpdatePatient(
             [Required]
             int PatientID,

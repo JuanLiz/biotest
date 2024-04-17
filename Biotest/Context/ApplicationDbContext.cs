@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Biotest.Model;
+﻿using Biotest.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Context
@@ -38,7 +37,21 @@ namespace Biotest.Context
         // Filter all entities with IsActive property
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Patient>().HasQueryFilter(p => p.IsActive);
+            modelBuilder.Entity<Analysis>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<AnalysisType>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<Employee>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<EmployeePosition>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<Gender>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<GeneticTest>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<GeneticTestType>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<GeneticVariant>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<GeneticVariantType>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<Genotype>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<Patient>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<PredictedEffect>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<Sample>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<SampleSource>().HasQueryFilter(e => e.IsActive);
+            modelBuilder.Entity<SampleType>().HasQueryFilter(e => e.IsActive);
         }
     }
 }

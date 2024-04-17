@@ -6,7 +6,7 @@ namespace Biotest.Repositories
 {
     public interface IGenotypeRepository
     {
-        Task<IEnumerable<Genotype>> GetGenotype();
+        Task<IEnumerable<Genotype>> GetGenotypes();
         Task<Genotype?> GetGenotype(int id);
         Task<Genotype> UpdateGenotype(Genotype genotype);
         Task<Genotype> CreateGenotype(Genotype genotype);
@@ -20,7 +20,7 @@ namespace Biotest.Repositories
             return await db.Genotype.FindAsync();
         }
 
-        public async Task<IEnumerable<Genotype>> GetGenotype()
+        public async Task<IEnumerable<Genotype>> GetGenotypes()
         {
             return await db.Genotype.ToListAsync();
         }

@@ -1,8 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-using Biotest.Context;
 using Biotest.Model;
 using Biotest.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Biotest.Services
 {
@@ -80,22 +77,17 @@ namespace Biotest.Services
             )
         {
             Patient? newPatient = await patientRepository.GetPatient(PatientID);
-            if (newPatient == null)
-            {
-                throw new Exception("Patient not found");
-            }
-            else
-            {
-                // Check nullability. Replace only filled fields
-                newPatient.Name = name ?? newPatient.Name;
-                newPatient.LastName = lastName ?? newPatient.LastName;
-                newPatient.BirthDate = birthDate ?? newPatient.BirthDate;
-                newPatient.GenderID = genderID ?? newPatient.GenderID;
-                newPatient.Phone = phone ?? newPatient.Phone;
-                newPatient.Address = address ?? newPatient.Address;
-                newPatient.Email = email ?? newPatient.Email;
-                return await patientRepository.UpdatePatient(newPatient);
-            }
+            if (newPatient == null) throw new Exception("Patient not found");
+
+            // Check nullability. Replace only filled fields
+            newPatient.Name = name ?? newPatient.Name;
+            newPatient.LastName = lastName ?? newPatient.LastName;
+            newPatient.BirthDate = birthDate ?? newPatient.BirthDate;
+            newPatient.GenderID = genderID ?? newPatient.GenderID;
+            newPatient.Phone = phone ?? newPatient.Phone;
+            newPatient.Address = address ?? newPatient.Address;
+            newPatient.Email = email ?? newPatient.Email;
+            return await patientRepository.UpdatePatient(newPatient);
         }
 
         public async Task<Patient?> DeletePatient(int id)

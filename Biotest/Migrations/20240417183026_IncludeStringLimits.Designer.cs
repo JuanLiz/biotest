@@ -4,6 +4,7 @@ using Biotest.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biotest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240417183026_IncludeStringLimits")]
+    partial class IncludeStringLimits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +64,7 @@ namespace Biotest.Migrations
 
                     b.HasIndex("GeneticTestID");
 
-                    b.ToTable("Analysis", (string)null);
+                    b.ToTable("Analysis");
                 });
 
             modelBuilder.Entity("Biotest.Model.AnalysisType", b =>
@@ -82,7 +85,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("AnalysisTypeID");
 
-                    b.ToTable("AnalysisType", (string)null);
+                    b.ToTable("AnalysisType");
                 });
 
             modelBuilder.Entity("Biotest.Model.Employee", b =>
@@ -118,7 +121,7 @@ namespace Biotest.Migrations
 
                     b.HasIndex("GenderID");
 
-                    b.ToTable("Employee", (string)null);
+                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("Biotest.Model.EmployeePosition", b =>
@@ -139,7 +142,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("EmployeePositionID");
 
-                    b.ToTable("EmployeePosition", (string)null);
+                    b.ToTable("EmployeePosition");
                 });
 
             modelBuilder.Entity("Biotest.Model.Gender", b =>
@@ -160,7 +163,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("GenderID");
 
-                    b.ToTable("Gender", (string)null);
+                    b.ToTable("Gender");
                 });
 
             modelBuilder.Entity("Biotest.Model.GeneticTest", b =>
@@ -199,7 +202,7 @@ namespace Biotest.Migrations
 
                     b.HasIndex("SampleID");
 
-                    b.ToTable("GeneticTest", (string)null);
+                    b.ToTable("GeneticTest");
                 });
 
             modelBuilder.Entity("Biotest.Model.GeneticTestType", b =>
@@ -220,7 +223,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("GeneticTestTypeID");
 
-                    b.ToTable("GeneticTestType", (string)null);
+                    b.ToTable("GeneticTestType");
                 });
 
             modelBuilder.Entity("Biotest.Model.GeneticVariant", b =>
@@ -261,7 +264,7 @@ namespace Biotest.Migrations
 
                     b.HasIndex("PredictedEffectID");
 
-                    b.ToTable("GeneticVariant", (string)null);
+                    b.ToTable("GeneticVariant");
                 });
 
             modelBuilder.Entity("Biotest.Model.GeneticVariantType", b =>
@@ -282,7 +285,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("GeneticVariantTypeID");
 
-                    b.ToTable("GeneticVariantType", (string)null);
+                    b.ToTable("GeneticVariantType");
                 });
 
             modelBuilder.Entity("Biotest.Model.Genotype", b =>
@@ -303,7 +306,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("GenotypeID");
 
-                    b.ToTable("Genotype", (string)null);
+                    b.ToTable("Genotype");
                 });
 
             modelBuilder.Entity("Biotest.Model.Patient", b =>
@@ -352,7 +355,7 @@ namespace Biotest.Migrations
 
                     b.HasIndex("GenderID");
 
-                    b.ToTable("Patient", (string)null);
+                    b.ToTable("Patient");
                 });
 
             modelBuilder.Entity("Biotest.Model.PredictedEffect", b =>
@@ -373,7 +376,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("PredictedEffectID");
 
-                    b.ToTable("PredictedEffect", (string)null);
+                    b.ToTable("PredictedEffect");
                 });
 
             modelBuilder.Entity("Biotest.Model.Sample", b =>
@@ -407,7 +410,7 @@ namespace Biotest.Migrations
 
                     b.HasIndex("SampleTypeID");
 
-                    b.ToTable("Sample", (string)null);
+                    b.ToTable("Sample");
                 });
 
             modelBuilder.Entity("Biotest.Model.SampleSource", b =>
@@ -428,7 +431,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("SampleSourceID");
 
-                    b.ToTable("SampleSource", (string)null);
+                    b.ToTable("SampleSource");
                 });
 
             modelBuilder.Entity("Biotest.Model.SampleType", b =>
@@ -449,7 +452,7 @@ namespace Biotest.Migrations
 
                     b.HasKey("SampleTypeID");
 
-                    b.ToTable("SampleType", (string)null);
+                    b.ToTable("SampleType");
                 });
 
             modelBuilder.Entity("Biotest.Model.Analysis", b =>

@@ -16,7 +16,7 @@ namespace Biotest.Model
         public required int EmployeeID { get; set; }
         public required DateTime Date { get; set; }
         [MaxLength(300)]
-        public required string Result { get; set; }
+        public required string Results { get; set; }
         [JsonIgnore]
         public bool IsActive { get; set; } = true;
 

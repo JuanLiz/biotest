@@ -6,7 +6,7 @@ namespace Biotest.Repositories
 {
     public interface IGeneticTestRepository
     {
-        Task<IEnumerable<GeneticTest>> GetGeneticTest();
+        Task<IEnumerable<GeneticTest>> GetGeneticTests();
         Task<GeneticTest?> GetGeneticTest(int id);
         Task<GeneticTest> UpdateGeneticTest(GeneticTest geneticTest);
         Task<GeneticTest> CreateGeneticTest(GeneticTest geneticTest);
@@ -20,7 +20,7 @@ namespace Biotest.Repositories
             return await db.GeneticTest.FindAsync();
         }
 
-        public async Task<IEnumerable<GeneticTest>> GetGeneticTest()
+        public async Task<IEnumerable<GeneticTest>> GetGeneticTests()
         {
             return await db.GeneticTest.ToListAsync();
         }

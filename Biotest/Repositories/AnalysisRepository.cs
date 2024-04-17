@@ -6,7 +6,7 @@ namespace Biotest.Repositories
 {
     public interface IAnalysisRepository
     {
-        Task<IEnumerable<Analysis>> GetAnalysis();
+        Task<IEnumerable<Analysis>> GetAnalyses();
         Task<Analysis?> GetAnalysis(int id);
         Task<Analysis> UpdateAnalysis(Analysis analysis);
         Task<Analysis> CreateAnalysis(Analysis analysis);
@@ -20,7 +20,7 @@ namespace Biotest.Repositories
             return await db.Analysis.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Analysis>> GetAnalysis()
+        public async Task<IEnumerable<Analysis>> GetAnalyses()
         {
             return await db.Analysis.ToListAsync();
         }
