@@ -14,6 +14,7 @@ namespace Biotest.Model
         [MaxLength(30)]
         public required string LastName { get; set; }
         public required DateOnly BirthDate { get; set; }
+        [ForeignKey(nameof(Gender))]
         public required int GenderID { get; set; }
         [MaxLength(10)]
         public required string Phone { get; set; }
@@ -22,10 +23,9 @@ namespace Biotest.Model
         [MaxLength(320)]
         public required string Email { get; set; }
         [JsonIgnore]
-        public bool IsActive { get; set; } = true;
+        public required bool IsActive { get; set; } = true;
 
-        [ForeignKey("GenderID")]
-        public virtual Gender Gender { get; set; }
+        public virtual Gender? Gender { get; set; }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Biotest.Model
 {
@@ -7,22 +8,21 @@ namespace Biotest.Model
     {
         [Key]
         public int GeneticTestID { get; set; }
-        [Required]
+        [ForeignKey(nameof(GeneticTestType))]
         public required int GeneticTestTypeID { get; set; }
-        //TODO: Solve cascade error
+        [ForeignKey(nameof(Sample))]
         public int? SampleID { get; set; }
-        [Required]
+        [ForeignKey(nameof(Employee))]
         public required int EmployeeID { get; set; }
-        [Required]
         public required DateTime Date { get; set; }
-        [Required]
+        [MaxLength(300)]
         public required string Result { get; set; }
+        [JsonIgnore]
+        public required bool IsActive { get; set; } = true;
 
-        [ForeignKey("GeneticTestTypeID")]
-        public virtual GeneticTestType GeneticTestType { get; set; }
-        [ForeignKey("SampleID")]
-        public virtual Sample Sample { get; set; }
-        [ForeignKey("EmployeeID")]
-        public virtual Employee Employee { get; set; }
+
+        public virtual GeneticTestType? GeneticTestType { get; set; }
+        public virtual Sample? Sample { get; set; }
+        public virtual Employee? Employee { get; set; }
     }
 }

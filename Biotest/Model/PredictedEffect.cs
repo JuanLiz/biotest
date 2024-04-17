@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Biotest.Model
 {
@@ -6,7 +7,9 @@ namespace Biotest.Model
     {
         [Key]
         public int PredictedEffectID { get; set; }
-        [Required]
+        [MaxLength(30)]
         public required string Name { get; set; }
+        [JsonIgnore]
+        public required bool IsActive { get; set; } = true;
     }
 }

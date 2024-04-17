@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 
 namespace Biotest.Model
@@ -8,24 +9,23 @@ namespace Biotest.Model
     {
         [Key]
         public int GeneticVariantID { get; set; }
-        [Required]
+        [ForeignKey(nameof(GeneticVariantType))]
         public required int GeneticVariantTypeID { get; set; }
-        [Required]
+        [ForeignKey(nameof(Analysis))]
         public required int AnalysisID { get; set; }
-        [Required]
+        [ForeignKey(nameof(Genotype))]
         public required int GenotypeID { get; set; }
+        [MaxLength(30)]
         public required string Location { get; set; }
-        [Required]
+        [ForeignKey(nameof(PredictedEffect))]
         public required int PredictedEffectID { get; set; }
+        [JsonIgnore]
+        public required bool IsActive { get; set; } = true;
 
-        [ForeignKey("GeneticVariantTypeID")]
-        public virtual GeneticVariantType GeneticVariantType { get; set; }
-        [ForeignKey("AnalysisID")]
-        public virtual Analysis Analysis { get; set; }
-        [ForeignKey("GenotypeID")]
-        public virtual Genotype Genotype { get; set; }
-        [ForeignKey("PredictedEffectID")]
-        public virtual PredictedEffect PredictedEffect { get; set; }
+        public virtual GeneticVariantType? GeneticVariantType { get; set; }
+        public virtual Analysis? Analysis { get; set; }
+        public virtual Genotype? Genotype { get; set; }
+        public virtual PredictedEffect? PredictedEffect { get; set; }
 
     }
 }
