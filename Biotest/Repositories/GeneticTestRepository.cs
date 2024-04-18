@@ -17,7 +17,7 @@ namespace Biotest.Repositories
     {
         public async Task<GeneticTest?> GetGeneticTest(int id)
         {
-            return await db.GeneticTest.FindAsync();
+            return await db.GeneticTest.FindAsync(id);
         }
 
         public async Task<IEnumerable<GeneticTest>> GetGeneticTests()
