@@ -45,11 +45,11 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateGeneticVariant(
             [Required] int GeneticVariantID,
-            int GeneticVariantTypeID,
-            int AnalysisID,
-            int GenotypeID,
-            string Location,
-            [MaxLength(30)] int PredictedEffectID
+            int? GeneticVariantTypeID,
+            int? AnalysisID,
+            int? GenotypeID,
+            string? Location,
+            [MaxLength(30)] int? PredictedEffectID
         )
         {
             var updatedGeneticVariant = await geneticVariantService.UpdateGeneticVariant(GeneticVariantID,

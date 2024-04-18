@@ -42,11 +42,11 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateGeneticTest(
             [Required] int GeneticTestID,
-            int GeneticTestTypeID,
-            int SampleID,
-            int EmployeeID,
-            DateTime Date,
-            [MaxLength(500)] string Results
+            int? GeneticTestTypeID,
+            int? SampleID,
+            int? EmployeeID,
+            DateTime? Date,
+            [MaxLength(500)] string? Results
         )
         {
             var updatedGeneticTest = await geneticTestService.UpdateGeneticTest(GeneticTestID, GeneticTestTypeID, SampleID, EmployeeID, Date, Results);

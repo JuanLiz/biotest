@@ -45,10 +45,10 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateEmployee(
             [Required] int EmployeeID,
-            [MaxLength(30)] string Name,
-            [MaxLength(30)] string LastName,
-            int GenderID,
-            int EmployeePositionID
+            [MaxLength(30)] string? Name,
+            [MaxLength(30)] string? LastName,
+            int? GenderID,
+            int? EmployeePositionID
         )
         {
             var updatedEmployee =

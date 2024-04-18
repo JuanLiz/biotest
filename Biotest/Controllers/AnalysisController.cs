@@ -45,11 +45,11 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAnalysis(
             [Required] int AnalysisID,
-            int AnalysisTypeID,
-            int GeneticTestID,
-            DateTime Date,
-            [MaxLength(50)] string Method,
-            [MaxLength(500)] string Results
+            int? AnalysisTypeID,
+            int? GeneticTestID,
+            DateTime? Date,
+            [MaxLength(50)] string? Method,
+            [MaxLength(500)] string? Results
         )
         {
             var updatedAnalysis = await analysisService.UpdateAnalysis(AnalysisID, AnalysisTypeID, GeneticTestID, Date, Method, Results);

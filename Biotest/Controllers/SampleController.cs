@@ -40,10 +40,10 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateSample(
             [Required] int SampleID,
-            int PatientID,
-            DateTime Date,
-            int SampleTypeID,
-            int SampleSourceID
+            int? PatientID,
+            DateTime? Date,
+            int? SampleTypeID,
+            int? SampleSourceID
         )
         {
             var updatedSample = await sampleService.UpdateSample(SampleID, PatientID, Date, SampleTypeID, SampleSourceID);

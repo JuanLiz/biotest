@@ -33,7 +33,7 @@ namespace Biotest.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateGender([Required] int GenderID, [MaxLength(30)] string Name)
+        public async Task<IActionResult> UpdateGender([Required] int GenderID, [MaxLength(30)] string? Name)
         {
             var updatedGender = await genderService.UpdateGender(GenderID, Name);
             return Ok(updatedGender);

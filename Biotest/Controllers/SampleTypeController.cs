@@ -37,7 +37,7 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateSampleType(
             [Required] int SampleTypeID,
-            [MaxLength(30)] string Name
+            [MaxLength(30)] string? Name
         )
         {
             var updatedSampleType = await sampleTypeService.UpdateSampleType(SampleTypeID, Name);

@@ -37,7 +37,7 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdatePredictedEffect(
             [Required] int PredictedEffectID,
-            [MaxLength(30)] string Name
+            [MaxLength(30)] string? Name
         )
         {
             var updatedPredictedEffect = await predictedEffectService.UpdatePredictedEffect(PredictedEffectID, Name);

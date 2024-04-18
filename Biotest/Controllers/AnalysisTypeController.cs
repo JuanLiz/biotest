@@ -40,7 +40,7 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAnalysisType(
             [Required] int AnalysisTypeID,
-            [MaxLength(50)] string Name
+            [MaxLength(50)] string? Name
         )
         {
             var updatedAnalysisType = await analysisTypeService.UpdateAnalysisType(AnalysisTypeID, Name);

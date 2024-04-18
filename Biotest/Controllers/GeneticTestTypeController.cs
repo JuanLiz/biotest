@@ -37,7 +37,7 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateGeneticTestType(
             [Required] int GeneticTestTypeID,
-            [MaxLength(30)] string Name
+            [MaxLength(30)] string? Name
         )
         {
             var updatedGeneticTestType = await geneticTestTypeService.UpdateGeneticTestType(GeneticTestTypeID, Name);

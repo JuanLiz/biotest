@@ -37,7 +37,7 @@ namespace Biotest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateEmployeePosition(
             [Required] int EmployeePositionID,
-            [MaxLength(50)] string Name
+            [MaxLength(50)] string? Name
         )
         {
             var updatedEmployeePosition = await employeePositionService.UpdateEmployeePosition(EmployeePositionID, Name);
