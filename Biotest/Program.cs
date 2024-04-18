@@ -1,4 +1,5 @@
 using Biotest.Context;
+using Biotest.Repositories;
 using Biotest.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,8 +17,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add scoped repositories
+builder.Services.AddScoped<IAnalysisRepository, AnalysisRepository>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 // Add scoped services
+builder.Services.AddScoped<IAnalysisService, AnalysisService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 
 var app = builder.Build();

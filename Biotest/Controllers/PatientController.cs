@@ -29,27 +29,14 @@ namespace Biotest.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreatePatient(
-            [Required]
-            [MaxLength(30)]
-            string Name,
-            [Required]
-            [MaxLength(30)]
-            string LastName,
-            [Required]
-            DateOnly BirthDate,
-            [Required]
-            int GenderID,
-            [Required]
-            [Length(10, 10, ErrorMessage = "Phone number must be 10 digits")]
-            [Phone(ErrorMessage = "Invalid phone number")]
+            [Required][MaxLength(30)] string Name,
+            [Required][MaxLength(30)] string LastName,
+            [Required] DateOnly BirthDate,
+            [Required] int GenderID,
+            [Required] [Length(10, 10, ErrorMessage = "Phone number must be 10 digits")][Phone(ErrorMessage = "Invalid phone number")]
             string Phone,
-            [Required]
-            [MaxLength(50)]
-            string Address,
-            [Required]
-            [MaxLength(320)]
-            [EmailAddress(ErrorMessage = "Invalid email address")]
-            string Email
+            [Required][MaxLength(50)] string Address,
+            [Required][MaxLength(320)][EmailAddress(ErrorMessage = "Invalid email address")] string Email
         )
         {
             var newPatient = await patientService.CreatePatient(Name, LastName, BirthDate, GenderID, Phone, Address, Email);
@@ -58,22 +45,15 @@ namespace Biotest.Controllers
 
         [HttpPut]
         public async Task<IActionResult> UpdatePatient(
-            [Required]
-            int PatientID,
-            [MaxLength(30)]
-            string? Name,
-            [MaxLength(30)]
-            string? LastName,
+            [Required] int PatientID,
+            [MaxLength(30)] string? Name,
+            [MaxLength(30)] string? LastName,
             DateOnly? BirthDate,
             int? GenderID,
-            [Length(10, 10, ErrorMessage = "Phone number must be 10 digits")]
-            [Phone(ErrorMessage = "Invalid phone number")]
+            [Length(10, 10, ErrorMessage = "Phone number must be 10 digits")] [Phone(ErrorMessage = "Invalid phone number")]
             string? Phone,
-            [MaxLength(50)]
-            string? Address,
-            [MaxLength(320)]
-            [EmailAddress(ErrorMessage = "Invalid email address")]
-            string? Email
+            [MaxLength(50)] string? Address,
+            [MaxLength(320)][EmailAddress(ErrorMessage = "Invalid email address")] string? Email
             )
         {
             var newPatient = await patientService.UpdatePatient(PatientID, Name, LastName, BirthDate, GenderID, Phone, Address, Email);
