@@ -8,7 +8,7 @@ namespace Biotest.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class SampleTypeContoller(ISampleTypeService sampleTypeService) : ControllerBase
+    public class SampleTypeController(ISampleTypeService sampleTypeService) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetSampleTypes()
@@ -51,7 +51,5 @@ namespace Biotest.Controllers
             if (deletedSampleType == null) return NotFound();
             return Ok(deletedSampleType);
         }
-    }
-    {
     }
 }

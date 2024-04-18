@@ -2,7 +2,6 @@
 using Biotest.Model;
 using Biotest.Services;
 using Microsoft.AspNetCore.Mvc;
-using Biotest.Services;
 
 
 namespace Biotest.Controllers
